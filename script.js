@@ -167,6 +167,7 @@ links.each(function() {
 })
 $('#container').on('mouseover', moveCurrentUnderline)
 $('#title').on('mouseover', moveCurrentUnderline)
+$('.up-arrow').on('mouseover', moveCurrentUnderline)
 
 // move navbar-underline to current section
 function moveCurrentUnderline() {
