@@ -69,12 +69,19 @@ $('.up-arrow').on('click', function() {
 	$('html, body').animate({
 		scrollTop: 0
 	}, 1000, function() {
-		UPDATE_NAVBAR = 1
-		// show colored icons for all navlinks
-		$('.nav-link').each(function() {
-			var color = icon_dict[$(this).attr('href')]
-			$('img', $(this)).attr('src', `media/favicon_${color}.svg`)
-		})
+		setTimeout(function() {
+			UPDATE_NAVBAR = 1
+			// show colored icons for all navlinks
+			$('.nav-link').each(function() {
+				var color = icon_dict[$(this).attr('href')]
+				$('img', $(this)).attr('src', `media/favicon_${color}.svg`)
+			})
+
+			// update active and current class
+			$(`.nav-link`).removeClass('current')
+			$('.nav-item').removeClass('active')
+			target.css('width', 0)
+		}, 50)
 	})
 })
 
