@@ -135,23 +135,25 @@ video {
 
 .navbar.navbar-light .nav-link {
 	color: black;
-	border-bottom: 2px solid #00000000;
-	/* padding-bottom: 1px; */
-	/* transition: 0.2s; */
 }
 
 .navbar.navbar-light .nav-link:hover, .navbar.navbar-light .nav-link.current {
-	/* text-decoration: underline;
-	text-decoration-thickness: 3px; */
 	color: black;
-	border-bottom: 2px solid #000;
-	/* transition: 0.2s; */
 }
 
 .nav-icon {
 	max-width: 30px;
 	display: block;
 	transition: 0.2s;
+}
+
+.navbar-underline {
+	border-color: black;
+	position: absolute;
+	border-bottom: 4px solid transparent;
+	z-index: -1;
+	transform: translateX(-60px);
+	transition: all .35s ease-in-out;
 }
 
 #footer {
