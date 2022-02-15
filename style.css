@@ -1,26 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Hind:wght@300;400;500;600;700&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Julius+Sans+One&family=Maven+Pro:wght@400;500;600;700;800;900&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 ::selection {
-	color: white;
-	background-color: var(--text-color); 
+	background-color: #ebc91da9;
 }
 
 body, #overlay {
-	color: #5b5b5b;
-	font-family: 'Nunito Sans', sans-serif;
+	color: black;
+	font-family: 'Josefin Sans', sans-serif;
 	text-align: center;
 }
 
+body {
+	background-color: white;
+}
+
 #container {
-	margin: 50px;
+	background-color: white;
+	/* border-radius: 20px; */
+	margin: 50px 40px;
+	padding: 0;
+	min-height: 600px;
 }
 
 a {
 	font-size: 18px;
-	color: #79b7bb;
+	color: #FF7C6A;
 	line-height: 40px;
+	transition: 0.2s;
 }
 
 a:hover {
-	color: #79b7bb;
+	color: #6EE8CC;
+	text-decoration: none;
+	transition: 0.2s;
+}
+
+img {
+	width: 100%;
+	margin: auto;
+}
+
+video {
+	width: 20%;
+	margin: auto;
 }
 
 .btn {
@@ -39,6 +61,10 @@ a:hover {
 
 .noscroll { 
 	overflow: hidden;
+}
+
+.shadow-effect {
+	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.523), 0 0px 30px rgba(0, 0, 0, 0.521);
 }
 
 #overlay {
@@ -63,8 +89,183 @@ a:hover {
 	height: 20px;
 }
 
+#title {
+	color: black;
+	font-size: 70px;
+	margin: 120px 0 60px 0;
+	transition: 0.2s;
+}
+
+#title:hover {
+	color: #FF7C6A;
+	transition: 0.2s;
+}
+
+#title-container:hover {
+	text-decoration: none;
+}
+
+#navbar {
+}
+
+#nav-items {
+	margin: auto;
+}
+
+/* navbar spacing */
+.navbar-nav .nav-item {
+	margin: 0px 60px;
+}
+
+#navbar a {
+	padding: 6px 16px;
+	transition: 0s;
+}
+
+#navbar .nav-link {
+	color: black;
+	border-bottom: 2px solid #00000000;
+	/* padding-bottom: 1px; */
+	/* transition: 0.2s; */
+}
+
+#navbar .nav-link:hover, #navbar .nav-link.current {
+	/* text-decoration: underline;
+	text-decoration-thickness: 3px; */
+	border-bottom: 2px solid #000;
+	/* transition: 0.2s; */
+}
+
+.nav-icon {
+	max-width: 30px;
+	display: block;
+}
+
+#footer {
+	font-size: 1.1rem;
+}
+
+#footer a {
+	font-size: 1.5rem;
+	margin: 6px 3px;
+	transition: 0.2s;
+}
+
+#footer a:hover {
+	transition: 0.2s;
+}
+
+.section {
+	margin-bottom: 100px;
+}
+
+.section-header {
+	font-size: 70px;
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.section img {
+	width: 28%;
+	margin: 2%;
+	border: 1px solid #00000000;
+	/* box-shadow: -10px 10px 0px 0px #00000000; */
+	transition: 0.2s;
+}
+
+.section img:hover {
+	border: 1px solid black;
+	box-shadow: -10px 10px 0px 0px #000000;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+#animation iframe {
+	display: block;
+	margin: auto;
+	margin-bottom: 60px;
+}
+
+#about img {
+	width: 90%;
+}
+
+#about-text {
+	padding-left: 40px;
+}
+
+#about-links a {
+	color: black;
+	line-height: 32px;
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+#about-links a:hover {
+	color: #FF7C6A;
+}
+
+/********************** NAVBAR BUTTON **********************/
+
+#hamburger {
+	margin: 10px auto 20px auto;
+}
+
+.icon-bar {
+	width: 25px;
+	height: 2px;
+	background-color: black;
+	display: block;
+	transition: all 0.2s;
+	margin-top: 6px;
+}
+
+.navbar-toggler {
+	border: none;
+	background: transparent !important;
+	margin-bottom: 6px;
+	/*margin-top: -10px;*/
+}
+
+button.navbar-toggler {
+	border: none;
+	margin: auto;
+}
+
+.navbar-toggler .top-bar {
+	transform: rotate(40deg) translate(3px);
+	transform-origin: 10% 10%;
+}
+
+.navbar-toggler .middle-bar {
+	opacity: 0;
+}
+
+.navbar-toggler .bottom-bar {
+	transform: rotate(-40deg) translate(3px);
+	transform-origin: 10% 90%;
+}
+
+.navbar-toggler.collapsed .top-bar {
+	transform: rotate(0);
+}
+
+.navbar-toggler.collapsed .middle-bar {
+	opacity: 1;
+}
+
+.navbar-toggler.collapsed .bottom-bar {
+	transform: rotate(0);
+}
+
+
 @media only screen and (max-width: 600px) {
-	
+	#container {
+		margin: 50px 20px;
+		padding: 40px;
+		min-height: 600px;
+	}
 }
 
 

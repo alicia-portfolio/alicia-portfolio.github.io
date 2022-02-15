@@ -1,0 +1,15 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383 383" width="383" height="383">
+	<title>favicon-svg</title>
+	<style>
+		.s0 { fill: #ffffff } 
+		.s1 { fill: none;stroke: #000000;stroke-width: 17 } 
+		.s2 { fill: none;stroke: #000000;stroke-width: 15 } 
+	</style>
+	<path id="Shape 1" class="s0" d="m-6-11h395v401h-395z" />
+	<g id="Layer">
+		<path id="Layer" class="s1" d="m12.5 8.5h358v358h-358z" />
+		<path id="Layer" class="s1" d="m103 95v77.5" />
+		<path id="Layer" class="s1" d="m278.5 95v77.5" />
+		<path id="Layer" class="s2" d="m127 240h64m64 0h-64m0 0l-54.5 63m54.5-63l54.5 63" />
+	</g>
+</svg>
