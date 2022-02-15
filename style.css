@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Hind:wght@300;400;500;600;700&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Julius+Sans+One&family=Maven+Pro:wght@400;500;600;700;800;900&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Hind:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Julius+Sans+One&family=Maven+Pro:wght@400;500;600;700;800;900&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* highlight color */
 ::selection {
-	background-color: #ebc91da9;
+	background-color: #FF7C6A;
 }
 
 body, #overlay {
@@ -23,7 +24,6 @@ body {
 }
 
 a {
-	font-size: 18px;
 	color: #FF7C6A;
 	line-height: 40px;
 	transition: 0.2s;
@@ -151,6 +151,7 @@ video {
 .nav-icon {
 	max-width: 30px;
 	display: block;
+	transition: 0.2s;
 }
 
 #footer {
@@ -178,11 +179,25 @@ video {
 }
 
 .section img {
-	width: 28%;
+	/* max-height: 300px; */
+	max-width: 28%;
 	margin: 2%;
 	border: 1px solid #00000000;
-	/* box-shadow: -10px 10px 0px 0px #00000000; */
+	/* border: 1px solid black; */
+	/* opacity: 0; */
 	transition: 0.2s;
+}
+
+img.visible {
+	opacity: 1;
+}
+
+.up {
+	transform: translate(0, -20px);
+}
+
+.down {
+	transform: translate(0, 20px);
 }
 
 .section img:hover {
@@ -192,6 +207,20 @@ video {
 	cursor: pointer;
 }
 
+#intro {
+	font-size: 24px;
+	margin: 70px 70px;
+}
+
+#intro p {
+	margin-bottom: 26px;
+}
+
+.down-arrow {
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-size: 80px;
+}
+
 #animation iframe {
 	display: block;
 	margin: auto;
@@ -199,7 +228,9 @@ video {
 }
 
 #about img {
-	width: 90%;
+	margin: 0;
+	width: 80%;
+	max-width: 80%;
 }
 
 #about-text {
@@ -207,6 +238,7 @@ video {
 }
 
 #about-links a {
+	font-size: 18px;
 	color: black;
 	line-height: 32px;
 	margin: 0;
