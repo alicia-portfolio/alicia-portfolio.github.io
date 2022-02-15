@@ -30,19 +30,74 @@
 
 	<body class="text-center">
 
-		<!-- TITLE -->
-		<a id="title-container" href="index.html">
-			<div id="title">
-				Alicia Kang
-				<!-- <br>— -->
-			</div>
-		</a>
+		<div id="before-sticky">
+			<!-- TITLE -->
+			<a id="title-container" href="index.html">
+				<div id="title">
+					Alicia Kang
+					<!-- <br>— -->
+				</div>
+			</a>
 
-		<!-- NAVIGATION BAR -->
-		<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+			<!-- NAVIGATION BAR -->
+			<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+				<div class="container-fluid">
+					<!-- HAMBURGER BUTTON -->
+					<button class="hamburger navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsed-nav-items" aria-controls="collapsed-nav-items" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar top-bar"></span>
+						<span class="icon-bar middle-bar"></span>
+						<span class="icon-bar bottom-bar"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="collapsed-nav-items">
+						<!-- NAVIGATION ITEMS -->
+						<ul class="navbar-nav mr-auto" id="nav-items">
+							<!-- ANIMATION -->
+							<li class="nav-item">
+								<a class="nav-link" href="#animation" role="button" aria-haspopup="true" aria-expanded="false">
+									<img src="media/favicon.svg" alt="Animation" class="nav-icon">
+									Animation
+								</a>
+							</li>
+							<!-- end nav-item -->
+							<!-- DIGITAL ART -->
+							<li class="nav-item">
+								<a class="nav-link" href="#digital-art" role="button" aria-haspopup="true" aria-expanded="false">
+									<img src="media/favicon.svg" alt="Digital Art" class="nav-icon">
+									Digital Art
+								</a>
+							</li>
+							<!-- end nav-item -->
+							<!-- DESIGN -->
+							<li class="nav-item">
+								<a class="nav-link" href="#design" role="button" aria-haspopup="true" aria-expanded="false">
+									<img src="media/favicon.svg" alt="Design" class="nav-icon">
+									Design
+								</a>
+							</li>
+							<!-- end nav-item -->
+							<!-- ABOUT -->
+							<li class="nav-item">
+								<a class="nav-link" href="#about" role="button" aria-haspopup="true" aria-expanded="false">
+									<img src="media/favicon.svg" alt="About" class="nav-icon">
+									About
+								</a>
+							</li>
+							<!-- end nav-item -->
+						</ul>
+						<!-- END NAV-ITEMS (navbar-nav mr-auto) -->
+					</div>
+					<!-- end navbar-collapse -->
+				</div>
+				<!-- end container-fluid -->
+			</nav>
+			<!-- end navbar-light -->
+		</div>
+
+		<!-- NAVIGATION BAR STICKY -->
+		<nav class="navbar navbar-expand-lg navbar-light" id="navbar-sticky">
 			<div class="container-fluid">
 				<!-- HAMBURGER BUTTON -->
-				<button id="hamburger" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsed-nav-items" aria-controls="collapsed-nav-items" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="hamburger navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsed-nav-items" aria-controls="collapsed-nav-items" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bar top-bar"></span>
 					<span class="icon-bar middle-bar"></span>
 					<span class="icon-bar bottom-bar"></span>
@@ -97,7 +152,7 @@
 			<!-- ANIMATION -->
 			<div id="animation" class="section">
 				<div class="section-header">Animation</div>
-				
+
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/6mOEnLLqXxI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/PSjYBKo3b7Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

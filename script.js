@@ -15,12 +15,28 @@ onReady(function() {
 })
 
 // animated scroll to selected section
-$('#navbar a').on('click', function() {
+function scrollToSection() {
 	console.log($(this).attr('href'))
 	$('html, body').animate({
-		scrollTop: $($(this).attr('href')).offset().top
+		scrollTop: $($(this).attr('href')).offset().top - 120
 	}, 1000)
-})
+}
+$('.navbar a').on('click', scrollToSection)
+
+// show stickied x-axis once scroll past header
+$(window).scroll(function () {
+	if (
+		// if scroll past header
+		$(this).scrollTop() >
+		$("#before-sticky").outerHeight((includeMargin = true))
+	) {
+		// show sticky navbar
+		$("#navbar-sticky").css("display", "block");
+	} else {
+		// hide sticky navbar
+		$("#navbar-sticky").css("display", "none");
+	}
+});
 
 // // navbar collapse
 // $("#hamburger").on("click", () => {

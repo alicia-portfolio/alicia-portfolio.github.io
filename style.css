@@ -106,6 +106,17 @@ video {
 }
 
 #navbar {
+	width: 100%;
+	background-color: white;
+}
+
+#navbar-sticky {
+	width: 100%;
+	background-color: white;
+	position: fixed;
+	top: 0;
+	display: none;
+	z-index: 30;
 }
 
 #nav-items {
@@ -117,21 +128,22 @@ video {
 	margin: 0px 60px;
 }
 
-#navbar a {
+.navbar a {
 	padding: 6px 16px;
 	transition: 0s;
 }
 
-#navbar .nav-link {
+.navbar.navbar-light .nav-link {
 	color: black;
 	border-bottom: 2px solid #00000000;
 	/* padding-bottom: 1px; */
 	/* transition: 0.2s; */
 }
 
-#navbar .nav-link:hover, #navbar .nav-link.current {
+.navbar.navbar-light .nav-link:hover, .navbar.navbar-light .nav-link.current {
 	/* text-decoration: underline;
 	text-decoration-thickness: 3px; */
+	color: black;
 	border-bottom: 2px solid #000;
 	/* transition: 0.2s; */
 }
