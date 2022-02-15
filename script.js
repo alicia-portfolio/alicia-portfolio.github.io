@@ -44,7 +44,7 @@ function scrollToSection() {
 	current_navlink = $(`.nav-link[href="${$(this).attr('href')}"]`)
 
 	// show colored icons for all navlinks
-	$('.navbar .nav-link').each(function() {
+	$('.nav-link').each(function() {
 		var color = icon_dict[$(this).attr('href')]
 		$('img', $(this)).attr('src', `media/favicon_${color}.svg`)
 	})
@@ -61,7 +61,22 @@ function scrollToSection() {
 		UPDATE_NAVBAR = 1
 	})
 }
-$('.navbar a').on('click', scrollToSection)
+$('.nav-link').on('click', scrollToSection)
+// animate scroll for arrow linking to top
+$('.up-arrow').on('click', function() {
+	// animate scroll
+	UPDATE_NAVBAR = 0
+	$('html, body').animate({
+		scrollTop: 0
+	}, 1000, function() {
+		UPDATE_NAVBAR = 1
+		// show colored icons for all navlinks
+		$('.nav-link').each(function() {
+			var color = icon_dict[$(this).attr('href')]
+			$('img', $(this)).attr('src', `media/favicon_${color}.svg`)
+		})
+	})
+})
 
 // scroll function
 // show stickied navbar once scroll past header
@@ -75,9 +90,11 @@ $(window).scroll(function() {
 	) {
 		// show sticky navbar
 		$("#navbar-sticky").css("display", "block")
+		$('.up-arrow').css('opacity', 1)
 	} else {
 		// hide sticky navbar
 		$("#navbar-sticky").css("display", "none")
+		$('.up-arrow').css('opacity', 0)
 	}
 
 	// update current section in navbar
@@ -142,12 +159,19 @@ links.each(function() {
 	$(this).on('mouseover', moveHoverUnderline)
 })
 $('#container').on('mouseover', moveCurrentUnderline)
+$('#title').on('mouseover', moveCurrentUnderline)
 
 // move navbar-underline to current section
 function moveCurrentUnderline() {
 	// update active class
 	$(links).parent().removeClass('active')
 	$(`.nav-link.current`).parent().addClass('active')
+
+	// if not in any section yet
+	if ($(`.nav-link.current`).length == 0) {
+		target.css('width', 0)
+		return
+	}
 
 	current_navlink_dom = document.querySelector(`.nav-link.current`)
 	if (current_navlink_dom == null) return
@@ -162,6 +186,23 @@ function moveCurrentUnderline() {
 	target.css('top', `${top}px`)
 	target.css('borderColor', `black`)
 	target.css('transform', `none`)
+
+	// current_navlink_doms = document.querySelectorAll(`.nav-link.current`)
+	// if (current_navlink_doms == null) return
+	// for (var i = 0; i < current_navlink_doms.length; i++) {
+	// 	var current_navlink_dom = current_navlink_doms[i]
+	// 	var width = current_navlink_dom.getBoundingClientRect().width
+	// 	var height = current_navlink_dom.getBoundingClientRect().height
+	// 	var left = current_navlink_dom.getBoundingClientRect().left + window.pageXOffset
+
+	// 	// update dimensions
+	// 	target.css('width', `${width}px`)
+	// 	target.css('height', `${height}px`)
+	// 	target.css('left', `${left}px`)
+	// 	target.css('top', `${top}px`)
+	// 	target.css('borderColor', `black`)
+	// 	target.css('transform', `none`)
+	// }
 }
 
 // move navbar-underline on navbar link hover
@@ -175,7 +216,6 @@ function moveHoverUnderline() {
 		var width = this.getBoundingClientRect().width
 		var height = this.getBoundingClientRect().height
 		var left = this.getBoundingClientRect().left + window.pageXOffset
-		// var top = this.getBoundingClientRect().top + window.pageYOffset
 		var top = 0
 
 		// update dimensions
