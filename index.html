@@ -319,11 +319,13 @@
 			$('#switch-bg').on('mouseover', () => {
 				$('#switch-bg').css('opacity', 1)
 			})
+			$('#switch-bg').on('mouseout', () => {
+				if ($('#bg-list').css('opacity') == 0) $('#switch-bg').css('opacity', 0)
+			})
 			$('#switch-bg').on('click', () => {
 				if ($('#bg-list').css('opacity') == 0) $('#bg-list').css('opacity', 1)
 				else {
 					$('#bg-list').css('opacity', 0)
-					$('#switch-bg').css('opacity', 0)
 				}
 			})
 			$('#bg-list li').on('click', function() {

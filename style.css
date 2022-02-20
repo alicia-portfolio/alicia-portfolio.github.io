@@ -161,6 +161,7 @@ video {
 
 .navbar.navbar-light .nav-link {
 	color: black;
+	/* background-color: white; */
 }
 
 .navbar.navbar-light .nav-link:hover, .navbar.navbar-light .nav-link.current {
