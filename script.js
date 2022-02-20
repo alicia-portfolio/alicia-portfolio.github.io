@@ -53,6 +53,8 @@ function scrollToSection() {
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
 
+	console.log(this, $(this).attr('href'), $($(this).attr('href')).offset())
+
 	// animate scroll
 	UPDATE_NAVBAR = 0
 	$('html, body').animate({
@@ -60,6 +62,12 @@ function scrollToSection() {
 	}, 1000, function() {
 		UPDATE_NAVBAR = 1
 	})
+
+	// check if hamburger is showing
+	if ($('.hamburger').css('display') == 'block') {
+		$('.navbar-collapse').removeClass('show')
+		$('.hamburger').addClass('collapsed')
+	}
 }
 $('.nav-link').on('click', scrollToSection)
 // animate scroll for arrow linking to top
@@ -239,13 +247,128 @@ function moveHoverUnderline() {
 // adjust navbar-underline on window resize
 function resizeFunc() {
 	var active = $('.nav-item.active')
-	if (active) {
+	if (active.length > 0) {
 		var left = active.getBoundingClientRect().left + window.pageXOffset
 		var top = active.getBoundingClientRect().top + window.pageYOffset
 		target.css('left', `${left}px`)
 		target.css('top', `${top}px`)
 	}
+
+	// check if hamburger is showing
+	if ($('.hamburger').css('display') == 'block') {
+		$('.navbar-underline').css('display', 'none')
+	} else {
+		$('.navbar-underline').css('display', 'block')
+	}
 }
 window.addEventListener('resize', resizeFunc)
 
+
+//////////////////// IMAGE LIGHTBOX ////////////////////
+
+var current_image
+$(document).ready(function() {
+	resizeFunc()
+	function showImageOverlay(img) {
+		// show selected image
+		src = $(img).attr('src')
+		$('#image-overlay').attr('src', src)
+
+		// show caption for selected image
+		caption = $(img).attr('data-caption')
+		$('#overlay-text').html(caption)
+	}
+	
+	// open overlay
+	$('.image-container').on('click', function() {
+		current_image = $(this).find('img')
+	
+		img = $(this).find('img')
+		showImageOverlay(img)
+
+		// if height greater than window height
+		if (0.9*$(window).width()*($(img).height()/$(img).width()) < $(window).height()) {
+			$('#image-overlay-container').css('width', `${0.8*$(window).width()}px`)
+		} else {
+			$('#image-overlay-container').css('height', `${0.8*$(window).height()}px`)
+		}
+
+		$('#overlay-tip').css('visibility', 'visible')
+			.css('opacity', 1)
+
+		// $('#image-overlay').css('width', '60%')
+		// if (window.screen.width < 767) {
+		// 	$('#image-overlay').css('width', '90%')
+		// }
+
+		// show overlay, disable background scroll
+		$('#overlay').css('visibility', 'visible')
+		overlay.setAttribute('aria-hidden', false)
+		document.body.classList.toggle('noscroll', true)
+	})
+	
+	// close overlay
+	$('#close-overlay').on('click', function() {
+		// close overlay & re-enable scroll
+		$('#overlay').css('visibility', 'hidden')
+		$('#overlay-tip').css('visibility', 'hidden')
+			.css('opacity', 0)
+		document.body.classList.toggle('noscroll', false)
+	
+		// zoom out image
+		$('#image-overlay').attr('width', '60%')
+		if (window.screen.width < 767) {
+			$('#image-overlay').attr('width', '90%')
+		}
+	})
+	
+	// image overlay zoom
+	// $('#image-overlay').on('click', function(e) {
+	// 	e.stopPropagation() // don't trigger #overlay click event
+	// 	// zoom in
+	// 	if (window.screen.width < 767) { // mobile
+	// 		if ($('#image-overlay').css('width') == '90%') {
+	// 			$('#image-overlay').css('width', '100%')
+	// 		} else { // zoom out
+	// 			$('#image-overlay').css('width', '90%')
+	// 		}
+	// 		return
+	// 	} // desktop
+	// 	if ($('#image-overlay').css('width') == '60%') {
+	// 		$('#image-overlay').css('width', '80%')
+	// 	} else { // zoom out
+	// 		$('#image-overlay').css('width', '60%')
+	// 	}
+	// })
+
+	// navigate prev/next image
+	$(document).on('keyup', function(e) {
+		if ($('#overlay').css('visibility') == 'hidden') return
+		// prevent default keyup behavior
+		e.preventDefault()
+
+		// current image being show in overlay
+		var images = $('.image')
+		var cur = images.index(current_image)
+		// previous image - left arrow
+		if (e.which == 37) {
+			if (cur <= 0) return
+			img = images[cur-1]
+			current_image = img
+			showImageOverlay(img)
+		}
+		// next image - right arrow
+		else if (e.which == 39) {
+			if (cur >= images.length-1) return
+			img = images[cur+1]
+			current_image = img
+			showImageOverlay(img)
+		}
+		else {
+			return
+		}
+		$('#overlay-tip').css('visibility', 'hidden')
+			.css('opacity', 0)
+	})
+})
 

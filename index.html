@@ -29,9 +29,23 @@
 	</head>
 
 	<body class="text-center">
+		<!-- OVERLAY -->
+		<div id="overlay" class="text-center" aria-hidden="true">
+			<div id="close-overlay"><i class="fas fa-times"></i></div>
+			<div id="overlay-container">
+				<div id="overlay-text"></div>
+				<div id="image-overlay-container">
+					<img id="image-overlay"></img>
+				</div>
+				<br><br>
+				<div id="overlay-tip">Use the left and right arrows to navigate through the images.</div>
+				<br><br><br>
+			</div>
+		</div>
+
+		<!-- TITLE -->
 		<span id="top"></span>
 		<div id="before-sticky">
-			<!-- TITLE -->
 			<div id="title">Alicia Kang</div>
 		</div>
 
@@ -77,7 +91,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="#about" role="button" aria-haspopup="true" aria-expanded="false">
 								<img src="media/favicon_yellow.svg" alt="About" class="nav-icon">
-								About
+								About Me
 							</a>
 						</li>
 						<!-- end nav-item -->
@@ -91,7 +105,7 @@
 		<!-- end navbar-light -->
 
 		<!-- ARROW TO TOP -->
-		<a href="#top"><div class="up-arrow">↑</div></a>
+		<div class="up-arrow">↑</div>
 		<!-- NAVIGATION BAR STICKY -->
 		<nav class="navbar navbar-expand-lg navbar-light" id="navbar-sticky">
 			<div class="container-fluid">
@@ -134,7 +148,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="#about" role="button" aria-haspopup="true" aria-expanded="false">
 								<img src="media/favicon_yellow.svg" alt="About" class="nav-icon">
-								About
+								About Me
 							</a>
 						</li>
 						<!-- end nav-item -->
@@ -161,31 +175,63 @@
 			<div id="digital-art" class="section">
 				<div class="section-header">Digital Art</div>
 				
-				<!-- KORRA -->
-				<img src="media/digital_art/legend_of_korra/Lin_Beifong 1.png" alt="Lin Beifong">
-				<img src="media/digital_art/legend_of_korra/Lin_Beifong.png" alt="Lin Beifong">
-				<img src="media/digital_art/legend_of_korra/Kuvira 1.png" alt="Kuvira">
-				<img src="media/digital_art/legend_of_korra/Kuvira 2.png" alt="Kuvira">
-				<img src="media/digital_art/legend_of_korra/Kuvira Framed.png" alt="Kuvira">
-				<img src="media/digital_art/legend_of_korra/Korra 1.png" alt="Korra">
-				<img src="media/digital_art/legend_of_korra/Korra 2.png" alt="Korra">
-				<img src="media/digital_art/legend_of_korra/Asami.png" alt="Asami">
-
+				<!-- LEGEND OF KORRA -->
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Lin_Beifong 1.png" class="image" title="Lin Beifong - Legend of Korra" data-caption="Lin Beifong - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Lin_Beifong.png" class="image" title="Lin Beifong - Legend of Korra" data-caption="Lin Beifong - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Kuvira 1.png" class="image" title="Kuvira - Legend of Korra" data-caption="Kuvira - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Kuvira 2.png" class="image" title="Kuvira - Legend of Korra" data-caption="Kuvira - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Kuvira Framed.png" class="image" title="Kuvira - Legend of Korra" data-caption="Kuvira - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Korra 1.png" class="image" title="Korra - Legend of Korra" data-caption="Korra - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Korra 2.png" class="image" title="Korra - Legend of Korra" data-caption="Korra - Legend of Korra">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/legend_of_korra/Asami.png" class="image" title="Asami - Legend of Korra" data-caption="Asami - Legend of Korra">
+				</div>
+				
 				<!-- SQUID GAME -->
-				<img src="media/digital_art/squid_game/456.png" alt="456">
-				<img src="media/digital_art/squid_game/Saebyeok.png" alt="Saebyeok">
-				<img src="media/digital_art/squid_game/Sang_woo.png" alt="Sang woo">
-				<img src="media/digital_art/squid_game/Squid Game Doll.png" alt="Squid Game Doll">
+				<div class="image-container">
+					<img src="media/digital_art/squid_game/456.png" class="image" title="Player 456 - Squid Game" data-caption="Player 456 - Squid Game">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/squid_game/Saebyeok.png" class="image" title="Saebyeok - Squid Game" data-caption="Saebyeok - Squid Game">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/squid_game/Sang_woo.png" class="image" title="Sangwoo - Squid Game" data-caption="Sangwoo - Squid Game">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/squid_game/Squid Game Doll.png" class="image" title="Squid Game Doll" data-caption="Squid Game Doll">
+				</div>
 
 				<!-- OTHERS -->
-				<img src="media/digital_art/Comfort Women Collage.jpg" alt="Comfort Women Collage">
-				<img src="media/digital_art/Eyes (Digital Sketch).png" alt="Eyes (Digital Sketch)">
-				<img src="media/digital_art/Mom and Grandma in the Snow.jpg" alt="Mom and Grandma in the Snow">
-				<img src="media/digital_art/Beast Boy.png" alt="Beast Boy">
-				
-				<img src="media/digital_art/Judar_from_Magi.png" alt="Judar from Magi">
-				
-				
+				<div class="image-container">
+					<img src="media/digital_art/Comfort Women Collage.jpg" class="image" title="Comfort Woman Collage" data-caption="Comfort Woman Collage - for a digital art class assignment, I clipped a speech bubble from Keum Suk Gendry-Kim's graphic novel Grass and a photo of former comfort woman Lee Ok-sun. Then, I placed these images into a modern photo of a comfort woman statue in Korea.
+					">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/Eyes (Digital Sketch).png" class="image" title="Sketch of Eyes" data-caption="Sketch of Eyes (using reference)">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/Mom and Grandma in the Snow.jpg" class="image" title="Mom and Grandma in the Snow" data-caption="Mom and Grandma in the Snow - using a reference photo of my mom and her mother when they were younger">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/Beast Boy.png" class="image" title="Beast Boy - Teen Titans" data-caption="Beast Boy - Teen Titans">
+				</div>
+				<div class="image-container">
+					<img src="media/digital_art/Judar_from_Magi.png" class="image" title="Judar - Magi" data-caption="Judar - Magi">
+				</div>
 			</div>
 
 			<!-- ANIMATION -->
@@ -203,8 +249,12 @@
 			<div id="design" class="section">
 				<div class="section-header">Design</div>
 
-				<img src="media/design/Recruiter Analytics Job Postings.png" alt="Recruiter Analytics Job Postings">
-				<img src="media/design/Daily Infographic.png" alt="Daily Infographic">
+				<div class="image-container">
+					<img src="media/design/Recruiter Analytics Job Postings.png" class="image" title="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
+				</div>
+				<div class="image-container">
+					<img src="media/design/Daily Infographic.png" class="image" title="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
+				</div>
 
 				<br><br>
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/Oa188ZJlftw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -216,7 +266,7 @@
 
 			<!-- ABOUT -->
 			<div id="about" class="section">
-				<div class="section-header">About</div>
+				<div class="section-header">About Me</div>
 				<div class="row">
 					<div id="about-text" class="col-md-6 text-right">
 						<p>Hey! Thanks for sticking around.</p>
