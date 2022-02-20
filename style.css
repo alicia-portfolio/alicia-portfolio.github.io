@@ -15,11 +15,46 @@ body {
 	background-color: white;
 }
 
-#container {
+#bg {
 	background-color: white;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+#switch-bg {
+	position: fixed;
+	top: 30px;
+	left: 20px;
+	cursor: pointer;
+	opacity: 0;
+	z-index: 200;
+	transition: 0.2s;
+}
+
+#bg-list {
+	background-color: rgba(255, 255, 255, 0.85);
+	position: fixed;
+	top: 80px;
+	left: 20px;
+	padding: 20px;
+	opacity: 0;
+	z-index: 200;
+	transition: 0.2s;
+}
+
+#bg-list li {
+	cursor: pointer;
+}
+
+#container {
+	/* background-color: white; */
 	padding: 0 40px;
 	/* padding: 50px 40px; */
 	min-height: 600px;
+	z-index: 1;
 }
 
 a {
