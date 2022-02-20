@@ -288,9 +288,11 @@ $(document).ready(function() {
 
 		// if height greater than window height
 		if (0.9*$(window).width()*($(img).height()/$(img).width()) < $(window).height()) {
-			$('#image-overlay-container').css('width', `${0.8*$(window).width()}px`)
+			// $('#image-overlay-container').css('width', `${0.8*$(window).width()}px`)
+			// $('#image-overlay-container').css('height', '')
 		} else {
 			$('#image-overlay-container').css('height', `${0.8*$(window).height()}px`)
+			$('#image-overlay-container').css('width', '')
 		}
 
 		$('#overlay-tip').css('visibility', 'visible')
