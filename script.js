@@ -94,14 +94,15 @@ function scrollToSection() {
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
 
-	// console.log(this, $(this).attr('href'), $($(this).attr('href')).offset())
-
 	// animate scroll
 	UPDATE_NAVBAR = 0
 	$('html, body').animate({
 		scrollTop: $($(this).attr('href')).offset().top - $('#navbar').height() - 10
 	}, 1000, function() {
 		UPDATE_NAVBAR = 1
+		// update background shapes
+		updateCurrentSection()
+		updateBackgroundShapes(current_section)
 	})
 
 	// check if hamburger is showing
@@ -120,6 +121,8 @@ function scrollToTop() {
 	}, 1000, function() {
 		setTimeout(function() {
 			UPDATE_NAVBAR = 1
+			current_section = 'intro'
+
 			// show colored icons for all navlinks
 			$('.nav-link').each(function() {
 				var color = icon_dict[$(this).attr('href')]
@@ -130,30 +133,55 @@ function scrollToTop() {
 			$(`.nav-link`).removeClass('current')
 			$('.nav-item').removeClass('active')
 			target.css('width', 0)
-		}, 50)
+
+			// update background shapes
+			updateBackgroundShapes('intro')
+		}, 50) // 50 = delay
 	})
 }
 
-// scroll function
-// show stickied navbar once scroll past header
-// update current section and shifting underline in navbar
-function scrollHandler() {
-	// show stickied navbar once scroll past header
-	if (
-		// if scroll past header
-		$(this).scrollTop() >
-		$("#before-sticky").outerHeight((includeMargin = true))
-	) {
-		// show sticky navbar
-		$("#navbar-sticky").css("display", "block")
-		$('.up-arrow').css('opacity', 1)
-	} else {
-		// hide sticky navbar
-		$("#navbar-sticky").css("display", "none")
-		$('.up-arrow').css('opacity', 0)
-	}
+// update background shapes for a given section
+function updateBackgroundShapes(current_section) {
+	// reset all other background shapes
+	$('.bg-shape').css('opacity', 0)
+	$('.top').css('top', function() {
+		// console.log(this, $(this).data('start'))
+		return $(this).data('start')
+	})
+	$('.bottom').css('bottom', function() {
+		// console.log(this, $(this).data('start'))
+		return $(this).data('start')
+	})
 
-	// update current section in navbar
+	// show background shapes for current section
+	if (current_section == 'intro') {
+		$('.intro1').css('opacity', 1).css('top', 0).css('z-index', 1)
+		$('.intro2').css('opacity', 0.8).css('bottom', 0).css('z-index', 1)
+	}
+	else if (current_section == 'digital-art') {
+		$('.digital-art1').css('opacity', 1).css('top', $('#navbar').height())
+		$('.digital-art2').css('opacity', 1).css('bottom', 0)
+	}
+	else if (current_section == 'animation') {
+		$('.animation1').css('opacity', 1).css('top', $('#navbar').height())
+		$('.animation2').css('opacity', 1).css('bottom', 0)
+	}
+	else if (current_section == 'design') {
+		$('.design1').css('opacity', 1).css('top', $('#navbar').height())
+		$('.design2').css('opacity', 1).css('bottom', 0)
+	}
+	else if (current_section == 'about') {
+		$('.intro1').css('opacity', 1).css('top', $('#navbar').height()).css('z-index', -1)
+		$('.intro2').css('opacity', 1).css('bottom', 0).css('z-index', -1)
+	}
+	else { // intro
+		$('.intro1').css('opacity', 1).css('top', 0).css('z-index', 1)
+		$('.intro2').css('opacity', 0.8).css('bottom', 0).css('z-index', 1)
+	}
+}
+
+// update current section variable
+function updateCurrentSection() {
 	if (!UPDATE_NAVBAR) return
 	var pageTop = $(document).scrollTop()
 	var pageBottom = pageTop + $(window).height()
@@ -175,6 +203,34 @@ function scrollHandler() {
 	// get highest section currently visible
 	var temp = getLowestKey(visible)
 	current_section = temp != 0 ? temp : current_section
+	return current_section
+}
+
+// scroll function
+// show stickied navbar once scroll past header
+// update current section and shifting underline in navbar
+function scrollHandler() {
+	// update current section
+	var prev_section = current_section
+	updateCurrentSection()
+
+	// update bg image
+	if (prev_section != current_section) updateBackgroundShapes(current_section)
+
+	// show stickied navbar once scroll past header
+	if (
+		// if scroll past header
+		$(this).scrollTop() >
+		$("#before-sticky").outerHeight((includeMargin = true))
+	) {
+		// show sticky navbar
+		$("#navbar-sticky").css("display", "block")
+		$('.up-arrow').css('opacity', 1)
+	} else {
+		// hide sticky navbar
+		$("#navbar-sticky").css("display", "none")
+		$('.up-arrow').css('opacity', 0)
+	}
 
 	// update current section in navbar
 	current_navlink = $(`.nav-link[href="#${current_section}"]`)
@@ -205,6 +261,9 @@ function scrollHandler() {
 	target.css('top', `${top}px`)
 	target.css('borderColor', `black`)
 	target.css('transform', `none`)
+
+	// console.log(prev_section, current_section)
+
 }
 
 
@@ -376,6 +435,11 @@ $(document).ready(function() {
 	$('.nav-link').on('click', scrollToSection)
 	// scroll to top on click
 	$('.up-arrow').on('click', scrollToTop)
+	// $('body').on('animationend', () => {
+	// 	console.log('animation end', current_section)
+	// 	updateBackgroundShapes(current_section)
+	// })
+
 	
 	// open overlay
 	$('.image-container').on('click', showOverlay)
