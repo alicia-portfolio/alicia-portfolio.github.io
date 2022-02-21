@@ -4,6 +4,8 @@ var current_navlink_dom = document.querySelector(`.nav-link`)
 var UPDATE_NAVBAR = 1
 var target, links // for shifting navbar underline
 var current_image // for overlay image
+var parallaxElements = [] // list of parallax elements
+var windowHeight = 0
 
 var icon_dict = {
 	'#digital-art': 'teal',
@@ -82,14 +84,14 @@ function resizeHandler() {
 
 // animated scroll to selected section
 function scrollToSection() {
-	current_navlink = $(`.nav-link[href="${$(this).attr('href')}"]`)
-
 	// show colored icons for all navlinks
 	$('.nav-link').each(function() {
 		var color = icon_dict[$(this).attr('href')]
 		$('img', $(this)).attr('src', `media/favicon_${color}.svg`)
 	})
+
 	// show white icon for current navlink
+	current_navlink = $(`.nav-link[href="${$(this).attr('href')}"]`)
 	$('img', current_navlink).attr('src', 'media/favicon.svg')
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
@@ -99,10 +101,10 @@ function scrollToSection() {
 	$('html, body').animate({
 		scrollTop: $($(this).attr('href')).offset().top - $('#navbar').height() - 10
 	}, 1000, function() {
-		UPDATE_NAVBAR = 1
 		// update background shapes
 		updateCurrentSection()
 		updateBackgroundShapes(current_section)
+		UPDATE_NAVBAR = 1
 	})
 
 	// check if hamburger is showing
@@ -217,21 +219,6 @@ function scrollHandler() {
 	// update bg image
 	if (prev_section != current_section) updateBackgroundShapes(current_section)
 
-	// show stickied navbar once scroll past header
-	if (
-		// if scroll past header
-		$(this).scrollTop() >
-		$("#before-sticky").outerHeight((includeMargin = true))
-	) {
-		// show sticky navbar
-		$("#navbar-sticky").css("display", "block")
-		$('.up-arrow').css('opacity', 1)
-	} else {
-		// hide sticky navbar
-		$("#navbar-sticky").css("display", "none")
-		$('.up-arrow').css('opacity', 0)
-	}
-
 	// update current section in navbar
 	current_navlink = $(`.nav-link[href="#${current_section}"]`)
 	// show colored icons for all navlinks
@@ -261,9 +248,6 @@ function scrollHandler() {
 	target.css('top', `${top}px`)
 	target.css('borderColor', `black`)
 	target.css('transform', `none`)
-
-	// console.log(prev_section, current_section)
-
 }
 
 
@@ -408,6 +392,50 @@ function keyUpHandler(e) {
 			.css('opacity', 0)
 }
 
+//////////////////// PARALLAX ////////////////////
+
+// implement behavior for a given parallax element
+function parallax(scrollTop) {
+	// for each parallax element
+	for (var id in parallaxElements) {
+		// DURING - fixed position
+		// element is now active, fix the position so when we scroll it stays fixed
+		if (scrollTop >= parallaxElements[id].start && scrollTop <= parallaxElements[id].stop) {
+			// console.log('during', scrollTop, parallaxElements[id].start)
+			parallaxElements[id].state = 'during'
+			$(parallaxElements[id].elm)
+				.css({
+					position: 'fixed',
+					top: '0px',
+					'background-color': 'white',
+				})
+		}
+		// BEFORE - absolute position
+		// scrolled up back past the start value, reset position
+		else if (scrollTop < parallaxElements[id].start) {
+			// console.log('before', scrollTop, parallaxElements[id].start)
+			parallaxElements[id].state = 'before'
+			$(parallaxElements[id].elm)
+				.css({
+					position: 'absolute',
+					top: parallaxElements[id].start,
+					'background-color': 'transparent',
+				})
+		}
+		// AFTER - absolute position
+		// scrolled past the stop value, make position absolute again
+		else if (scrollTop > parallaxElements[id].stop && parallaxElements[id].state == 'during') {
+			// console.log('after', scrollTop, parallaxElements[id].start)
+			parallaxElements[id].state = 'after'
+			$(parallaxElements[id].elm)
+				.css({
+					position: 'absolute',
+					top: `${$('#navbar').height()+scrollTop}px`,
+					'background-color': 'white',
+				})
+		}
+	}
+}
 
 //////////////////// EXECUTE ////////////////////
 
@@ -450,7 +478,62 @@ $(document).ready(function() {
 		keyUpHandler(e)
 	})
 
-	// execute resize function
-	resizeHandler()
+	//////////// PARALLAX ////////////
+
+	windowHeight = $(window).height()
+	$('html, body').scrollTop(1) // auto scroll to top
+
+	// check if device has touch screen/ has touch events
+	var touchSupported = (('ontouchstart' in window) ||
+							window.DocumentTouch && document instanceof DocumentTouch)
+
+	// if touch events are supported, tie our animation to the position to these events as well
+	if (touchSupported) {
+		$(window)
+			.bind('touchmove', function(e) {
+				var val = e.currentTarget.scrollY
+				parallax(val)
+			})
+	}
+
+	// handle scroll event
+	$(window)
+		.bind('scroll', function(e) {
+			var val = $(this).scrollTop()
+			parallax(val)
+		})
+
+	// update vars used in parallax calculations on window resize
+	$(window).resize(function() {
+		windowHeight = $(this).height()
+		for (var id in parallaxElements) {
+			parallaxElements[id].initialOffsetY = $(parallaxElements[id].elm).offset().top
+			parallaxElements[id].height = $(parallaxElements[id].elm).height()
+		}
+	})
+
+	// add parallax elements to array
+	// get elements straight away since they won't change
+	// this will minimize DOM interactions on scroll events
+	$('.parallax').each(function() {
+		$elm = $(this)
+		var id = $elm.attr('id')
+		// use data-id as key
+		parallaxElements[id] = {
+			id: $elm.attr('id'),
+			start: $elm.data('start'),
+			stop: $elm.data('stop'),
+			speed: $elm.data('speed'),
+			elm: $elm[0],
+			initialOffsetY: $elm.offset().top,
+			height: $elm.height(),
+			width: $elm.outerWidth(),
+			state: 'before',
+			pos: $elm.data('pos'),
+		}
+	})
+
+	updateBackgroundShapes('intro')
+
 })
 
