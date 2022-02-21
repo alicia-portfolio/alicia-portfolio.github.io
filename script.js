@@ -97,6 +97,10 @@ function resizeHandler() {
 
 // animated scroll to selected section
 function scrollToSection() {
+	current_navlink = $(`.nav-link[href="${$(this).attr('href')}"]`)
+	current_section = $(current_navlink).attr('href').substring(1)
+	UPDATE_NAVBAR = 0
+
 	// show colored icons for all navlinks
 	$('.nav-link').each(function() {
 		var color = icon_dict[$(this).attr('href')]
@@ -104,18 +108,16 @@ function scrollToSection() {
 	})
 
 	// show white icon for current navlink
-	current_navlink = $(`.nav-link[href="${$(this).attr('href')}"]`)
 	$('img', current_navlink).attr('src', 'media/favicon.svg')
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
 
 	// animate scroll
-	UPDATE_NAVBAR = 0
 	$('html, body').animate({
 		scrollTop: $($(this).attr('href')).offset().top - $('#navbar').height() - 10
 	}, 1000, function() {
 		// update background shapes
-		updateCurrentSection()
+		// updateCurrentSection()
 		updateBackgroundShapes(current_section)
 		UPDATE_NAVBAR = 1
 	})
@@ -287,6 +289,8 @@ function scrollHandler() {
 
 // move shifting underline to current section
 function moveCurrentUnderline() {
+	if (!UPDATE_NAVBAR) return
+
 	// update active class
 	$(links).parent().removeClass('active')
 	$(`.nav-link.current`).parent().addClass('active')
@@ -314,6 +318,7 @@ function moveCurrentUnderline() {
 
 // move shifting underline on navbar link hover
 function moveHoverUnderline() {
+	if (!UPDATE_NAVBAR) return
 	if (!$(this).parent().hasClass('active')) {
 		// update active class
 		$(links).parent().removeClass('active')
@@ -334,7 +339,6 @@ function moveHoverUnderline() {
 		target.css('transform', `none`)
 	}
 }
-
 
 //////////////////// LOADING OVERLAY ////////////////////
 
