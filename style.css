@@ -5,7 +5,7 @@
 	background-color: #FF7C6A;
 }
 
-body, #overlay {
+body, .overlay {
 	color: black;
 	font-family: 'Josefin Sans', sans-serif;
 	text-align: center;
@@ -14,15 +14,6 @@ body, #overlay {
 body {
 	background-color: white;
 }
-
-/* #bg {
-	background-color: white;
-	width: 100%;
-	position: fixed;
-	top: 100px;
-	left: 0;
-	z-index: -1;
-} */
 
 .bg-shape {
 	position: fixed;
@@ -35,7 +26,7 @@ body {
 	padding: 0 40px;
 	/* padding: 50px 40px; */
 	min-height: 600px;
-	z-index: 1;
+	z-index: 10;
 }
 
 a {
@@ -82,7 +73,7 @@ video {
 	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.523), 0 0px 30px rgba(0, 0, 0, 0.521);
 }
 
-#overlay {
+.overlay {
 	position: fixed;
 	overflow-y: scroll;
 	z-index: 100;
@@ -115,10 +106,10 @@ video {
 	position: absolute;
 	width: 100%;
 	background-color: transparent;
-	z-index: 2;
+	z-index: 9;
 }
 
-.navbar-fixed {
+#navbar.navbar-fixed {
 	position: fixed;
 	top: 0;
 	z-index: 30;
@@ -179,23 +170,28 @@ video {
 
 .section {
 	margin-bottom: 100px;
+	z-index: 20;
 }
 
 .section-header {
 	font-size: 70px;
 	margin-top: 20px;
 	margin-bottom: 50px;
+	z-index: 20;
 }
 
 .image-container {
 	/* max-height: 300px; */
 	display: inline-block;
-	max-width: 28%;
+	position: relative;
+	overflow: hidden;
+	width: 28%;
 	margin: 2%;
 	border: 1px solid #00000000;
 	/* border: 1px solid black; */
 	/* opacity: 0; */
 	transition: 0.2s;
+	z-index: 20;
 }
 
 .image-container:hover {
@@ -206,6 +202,27 @@ video {
 }
 
 img.visible {
+	opacity: 1;
+}
+
+.placeholder {
+	position: relative;
+	width: 100%;
+	filter: blur(10px);
+	transform: scale(1);
+}
+
+.artwork {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	transition: opacity 0.2s linear;
+}
+
+.artwork.loaded {
 	opacity: 1;
 }
 
@@ -238,7 +255,7 @@ img.visible {
 	font-size: 50px;
 	opacity: 0;
 	transition: 0.2s;
-	z-index: 40;
+	z-index: 31;
 	cursor: pointer;
 }
 
@@ -254,6 +271,10 @@ img.visible {
 	50%{
 		transform: translateY(-10%);
 	}
+}
+
+iframe {
+	z-index: 20;
 }
 
 #animation iframe {
@@ -289,7 +310,7 @@ img.visible {
 
 .hamburger.navbar-toggler {
 	margin: 10px auto 20px auto;
-	z-index: 10;
+	z-index: 30;
 }
 
 .icon-bar {
@@ -366,8 +387,6 @@ button.navbar-toggler {
 	height: 100%;
 	object-fit: contain;
 	margin: auto;
-	/* margin-top: 10px; */
-	/* z-index: 3; */
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.324), 0 6px 6px rgba(0, 0, 0, 0.324);
 }
 
@@ -392,9 +411,96 @@ button.navbar-toggler {
 	top: 10px;
 	right: 20px;
 	cursor: pointer;
-	z-index: 200;
+	z-index: 101;
 }
 
+/*********** LOADING ICON ***********/
+
+#loading-overlay {
+	opacity: 1;
+	transition: 0.3s;
+}
+
+.loading-icon {
+	/* background: pink; */
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	margin: auto;
+	margin-top: 160px;
+	width: 120px;
+	height: 100px;
+}
+
+.loading-icon div {
+	position: absolute;
+	top: 23px;
+}
+
+.loading-icon .loading-teal {
+	background: #8EE5CD;
+}
+
+.loading-icon .loading-red {
+	background: #ED8270;
+}
+
+.loading-icon .loading-blue {
+	background: #64A7F8;
+}
+
+.loading-icon .loading-yellow {
+	background: #FDF394;
+}
+
+.gmb-loader {
+	font-size: 0;
+/*   display: inline-block; */
+/*   position: relative; */
+	height: 120px;
+	width: 120px; 
+}
+.gmb-loader div {
+	background: #56C4B4;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	position: absolute;
+	animation: gmb-bounce 1.75s infinite;
+	top: 50%;
+	margin-top: -15px; 
+}
+.gmb-loader div:nth-child(2) {
+	animation-delay: 0.25s;
+	left: 50%;
+	margin-left: -15px; 
+}
+.gmb-loader div:nth-child(3) {
+	animation-delay: 0.5s;
+	right: 0; 
+}
+
+@keyframes gmb-bounce {
+	10% {
+		transform: translate3d(0, 30px, 0);
+		animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+		height: 30px;
+	}
+	14% {
+		height: 90px;
+	}
+	15% {
+		height: 30px;
+		transform: translate3d(0, -60px, 0);
+		animation-timing-function: cubic-bezier(0.8, 0, 0.8, 1);
+	}
+	35% {
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+
+/*********** MEDIA QUERIES ***********/
 
 @media only screen and (max-width: 600px) {
 	#container {
@@ -423,9 +529,9 @@ button.navbar-toggler {
 	.image-container {
 		/* max-height: 300px; */
 		display: inline-block;
-		max-width: 45%;
+		width: 44%;
 		margin: 2%;
-		border: 1px solid #00000000;
+		border: 1px solid white;
 		/* border: 1px solid black; */
 		/* opacity: 0; */
 		transition: 0.2s;
@@ -433,13 +539,14 @@ button.navbar-toggler {
 	
 	.image-container:hover {
 		border: 1px solid black;
-		box-shadow: -10px 10px 0px 0px #000000;
+		box-shadow: -10px 10px 0px 0px black;
 		transition: 0.2s;
 		cursor: pointer;
 	}
 
 	iframe {
 		width: 90%;
+		margin: auto;
 	}
 }
 

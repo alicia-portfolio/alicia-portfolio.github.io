@@ -1,3 +1,6 @@
+// https://jmperezperez.com/medium-image-progressive-loading-placeholder/
+// https://medium.com/caspertechteam/simple-image-placeholders-for-lazy-loading-images-unknown-size-19f0866ceced
+
 var current_section = 'intro'
 var current_navlink = $('.nav-link')[0]
 var current_navlink_dom = document.querySelector(`.nav-link`)
@@ -314,6 +317,23 @@ function moveHoverUnderline() {
 }
 
 
+//////////////////// LOADING OVERLAY ////////////////////
+
+// show overlay
+function showLoadingOverlay() {
+	// show overlay, disable background scroll
+	$('#loading-overlay').css('visibility', 'visible')
+	document.body.classList.toggle('noscroll', true)
+}
+
+// close overlay
+function hideLoadingOverlay() {
+	// close overlay & re-enable scroll
+	$('#loading-overlay').css('visibility', 'hidden').css('opacity', 0)
+	document.body.classList.toggle('noscroll', false)
+}
+
+
 //////////////////// IMAGE LIGHTBOX ////////////////////
 
 // update overlay image for a given img
@@ -452,10 +472,38 @@ function parallax(scrollTop) {
 	}
 }
 
+
+//////////////////// IMAGE LAZY LOADING ////////////////////
+
+// load artwork images over placeholder
+function loadImages() {
+	// for each image container
+	$('.image-container').each(function() {
+		// load large image
+		var imgLarge = new Image()
+		$(imgLarge).addClass('artwork')
+		$(imgLarge).attr('src', $(this).attr('data-imglarge'))
+			.on('load', () => {
+				$(imgLarge).addClass('loaded')
+			})
+		
+		$(this).append($(imgLarge))
+
+		// update placeholder image src
+		$('.placeholder', $(this)).attr('src', $(this).attr('data-imglarge'))
+			.css('filter', 'none')
+	})
+	console.log('window loaded!')
+	console.log($('.image-container'))
+}
+
 //////////////////// EXECUTE ////////////////////
 
 // execute functions when document is ready
 $(document).ready(function() {
+	// show laoding screen
+	showLoadingOverlay()
+
 	// find shifting underline
 	target = $('.navbar-underline')
 	links = $('.nav-link')
@@ -478,10 +526,6 @@ $(document).ready(function() {
 	$('.nav-link').on('click', scrollToSection)
 	// scroll to top on click
 	$('.up-arrow').on('click', scrollToTop)
-	// $('body').on('animationend', () => {
-	// 	console.log('animation end', current_section)
-	// 	updateBackgroundShapes(current_section)
-	// })
 
 	
 	// open overlay
@@ -551,5 +595,12 @@ $(document).ready(function() {
 	updateBackgroundShapes('intro')
 	resizeHandler()
 
+	// load artwork image placeholders
+	$(window).on('load', loadImages)
+
+	loadImages()
+	hideLoadingOverlay()
 })
+
+
 
