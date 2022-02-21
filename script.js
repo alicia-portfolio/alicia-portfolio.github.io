@@ -58,7 +58,7 @@ function scrollToSection() {
 	// animate scroll
 	UPDATE_NAVBAR = 0
 	$('html, body').animate({
-		scrollTop: $($(this).attr('href')).offset().top - 120
+		scrollTop: $($(this).attr('href')).offset().top - $('#navbar').height() - 10
 	}, 1000, function() {
 		UPDATE_NAVBAR = 1
 	})
@@ -260,31 +260,47 @@ function resizeFunc() {
 	} else {
 		$('.navbar-underline').css('display', 'block')
 	}
+
+	// check if About section columns are collapsed
+	if ($('#about-text').offset().top != $('#about-links').offset().top) {
+		$('#about-text').removeClass('text-right').addClass('text-left')
+		$('#about-links').removeClass('text-left').addClass('text-center')
+	} else {
+		$('#about-text').removeClass('text-left').addClass('text-right')
+		$('#about-links').removeClass('text-center').addClass('text-left')
+	}
 }
 window.addEventListener('resize', resizeFunc)
 
+// detect if device is touch screen
+function isTouchDevice() {
+	return (('ontouchstart' in window) ||
+		(navigator.maxTouchPoints > 0) ||
+		(navigator.msMaxTouchPoints > 0))
+}
 
 //////////////////// IMAGE LIGHTBOX ////////////////////
 
 var current_image
+
+function updateOverlayImage(img) {
+	// show selected image
+	src = $(img).attr('src')
+	$('#image-overlay').attr('src', src)
+
+	// show caption for selected image
+	caption = $(img).attr('data-caption')
+	$('#overlay-text').html(caption)
+}
+
 $(document).ready(function() {
 	resizeFunc()
-	function showImageOverlay(img) {
-		// show selected image
-		src = $(img).attr('src')
-		$('#image-overlay').attr('src', src)
-
-		// show caption for selected image
-		caption = $(img).attr('data-caption')
-		$('#overlay-text').html(caption)
-	}
 	
 	// open overlay
 	$('.image-container').on('click', function() {
 		current_image = $(this).find('img')
-	
 		img = $(this).find('img')
-		showImageOverlay(img)
+		updateOverlayImage(img)
 
 		// if height greater than window height
 		if (0.9*$(window).width()*($(img).height()/$(img).width()) < $(window).height()) {
@@ -295,8 +311,13 @@ $(document).ready(function() {
 			$('#image-overlay-container').css('width', '')
 		}
 
-		$('#overlay-tip').css('visibility', 'visible')
+		if (isTouchDevice()) {
+			$('#overlay-tip').css('visibility', 'hidden')
+				.css('opacity', 0)
+		} else {
+			$('#overlay-tip').css('visibility', 'visible')
 			.css('opacity', 1)
+		}
 
 		// $('#image-overlay').css('width', '60%')
 		// if (window.screen.width < 767) {
@@ -357,14 +378,14 @@ $(document).ready(function() {
 			if (cur <= 0) return
 			img = images[cur-1]
 			current_image = img
-			showImageOverlay(img)
+			updateOverlayImage(img)
 		}
 		// next image - right arrow
 		else if (e.which == 39) {
 			if (cur >= images.length-1) return
 			img = images[cur+1]
 			current_image = img
-			showImageOverlay(img)
+			updateOverlayImage(img)
 		}
 		else {
 			return
