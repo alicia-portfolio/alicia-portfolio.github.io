@@ -101,6 +101,12 @@ function scrollToSection() {
 	current_section = $(current_navlink).attr('href').substring(1)
 	UPDATE_NAVBAR = 0
 
+	// check if hamburger is showing
+	if ($('.hamburger').css('display') == 'block') {
+		$('.navbar-collapse').removeClass('show')
+		$('.hamburger').addClass('collapsed')
+	}
+
 	// show colored icons for all navlinks
 	$('.nav-link').each(function() {
 		var color = icon_dict[$(this).attr('href')]
@@ -113,20 +119,15 @@ function scrollToSection() {
 	$('img', current_navlink).parent().addClass('current')
 
 	// animate scroll
+	var scrollHere = $($(this).attr('href')).offset().top - $('#navbar').height() - 10
 	$('html, body').animate({
-		scrollTop: $($(this).attr('href')).offset().top - $('#navbar').height() - 10
+		scrollTop: scrollHere
 	}, 1000, function() {
 		// update background shapes
 		// updateCurrentSection()
 		updateBackgroundShapes(current_section)
 		UPDATE_NAVBAR = 1
 	})
-
-	// check if hamburger is showing
-	if ($('.hamburger').css('display') == 'block') {
-		$('.navbar-collapse').removeClass('show')
-		$('.hamburger').addClass('collapsed')
-	}
 }
 
 // animated scroll to top of page
@@ -462,7 +463,7 @@ function parallax(scrollTop) {
 				.css({
 					position: 'fixed',
 					top: '0px',
-					'background-color': 'white',
+					'background-color': '#ffffffee',
 				})
 		}
 		// BEFORE - absolute position
@@ -471,6 +472,8 @@ function parallax(scrollTop) {
 			// console.log('before', scrollTop, parallaxElements[id].start)
 			$('#navbar').removeClass('navbar-fixed')
 			$('.up-arrow').css('opacity', 0)
+			if ($('.hamburger').css('display') != 'none') $('#nav-items').css('background-color', '#ffffffee') // #ffffffee
+			// else $('#nav-items').css('background-color', 'transparent')
 			parallaxElements[id].state = 'before'
 			$(parallaxElements[id].elm)
 				.css({
@@ -489,7 +492,7 @@ function parallax(scrollTop) {
 				.css({
 					position: 'absolute',
 					top: `${$('#navbar').height()+scrollTop}px`,
-					'background-color': 'white',
+					'background-color': '#ffffffee',
 				})
 		}
 	}
@@ -524,7 +527,7 @@ function loadImages() {
 
 // execute functions when document is ready
 $(document).ready(function() {
-	// show laoding screen
+	// show loading screen
 	showLoadingOverlay()
 
 	// find shifting underline
@@ -550,7 +553,6 @@ $(document).ready(function() {
 	// scroll to top on click
 	$('.up-arrow').on('click', scrollToTop)
 
-	
 	// open overlay
 	$('.image-container').on('click', showOverlay)
 	// close overlay
@@ -558,6 +560,13 @@ $(document).ready(function() {
 	// navigate prev/next overlay image
 	$(document).on('keyup', function(e) {
 		keyUpHandler(e)
+	})
+
+	// hamburger open menu items
+	$('hamburger').on('click', () => {
+		if ($('.hamburger').css('display') == 'block') {
+			$('#navbar').css('background-color', '#ffffffee')
+		}
 	})
 
 	//////////// PARALLAX ////////////
