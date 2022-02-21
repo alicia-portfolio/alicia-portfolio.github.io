@@ -2,19 +2,14 @@ var current_section = 'intro'
 var current_navlink = $('.nav-link')[0]
 var current_navlink_dom = document.querySelector(`.nav-link`)
 var UPDATE_NAVBAR = 1
+var target, links // for shifting navbar underline
+var current_image // for overlay image
 
 var icon_dict = {
 	'#digital-art': 'teal',
 	'#animation': 'red',
 	'#design': 'blue',
 	'#about': 'yellow',
-}
-
-// get key with lowest value for a given dict
-function getLowestKey(obj) {
-	if (Object.keys(obj).length == 0) return 0
-	var [lowestItems] = Object.entries(obj).sort(([ ,v1], [ ,v2]) => v1 - v2)
-	return lowestItems[0]
 }
 
 // add typing animations to section 
@@ -39,6 +34,52 @@ new TypeIt("#about .section-header", {
 	cursor: false,
 }).go()
 
+// get key with lowest value for a given dict
+function getLowestKey(obj) {
+	if (Object.keys(obj).length == 0) return 0
+	var [lowestItems] = Object.entries(obj).sort(([ ,v1], [ ,v2]) => v1 - v2)
+	return lowestItems[0]
+}
+
+// detect if device has touch screen
+function isTouchDevice() {
+	return (('ontouchstart' in window) ||
+		(navigator.maxTouchPoints > 0) ||
+		(navigator.msMaxTouchPoints > 0))
+}
+
+// window resize function
+// adjust shifting underline
+function resizeHandler() {
+	console.log('resize')
+	// check if About section columns are in line, adjust text alignment
+	if ($('#about-text').offset().top != $('#about-links').offset().top) {
+		$('#about-text').removeClass('text-right').addClass('text-left')
+		$('#about-links').removeClass('text-left').addClass('text-center')
+	} else {
+		$('#about-text').removeClass('text-left').addClass('text-right')
+		$('#about-links').removeClass('text-center').addClass('text-left')
+	}
+
+	// move shifting underline to current section
+	var active_ls = $('.nav-item.active')
+	active_ls.each(function() {
+		var left = $(this)[0].getBoundingClientRect().left + window.pageXOffset
+		var top = $(this)[0].getBoundingClientRect().top + window.pageYOffset
+		target.css('left', `${left}px`)
+		target.css('top', `${top}px`)
+	})
+
+	// don't show shifting underline if hamburger is showing
+	if ($('.hamburger').css('display') == 'block') {
+		$('.navbar-underline').css('display', 'none')
+	} else {
+		$('.navbar-underline').css('display', 'block')
+	}
+}
+
+//////////////////// SCROLL FUNCTIONS ////////////////////
+
 // animated scroll to selected section
 function scrollToSection() {
 	current_navlink = $(`.nav-link[href="${$(this).attr('href')}"]`)
@@ -53,7 +94,7 @@ function scrollToSection() {
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
 
-	console.log(this, $(this).attr('href'), $($(this).attr('href')).offset())
+	// console.log(this, $(this).attr('href'), $($(this).attr('href')).offset())
 
 	// animate scroll
 	UPDATE_NAVBAR = 0
@@ -69,9 +110,9 @@ function scrollToSection() {
 		$('.hamburger').addClass('collapsed')
 	}
 }
-$('.nav-link').on('click', scrollToSection)
-// animate scroll for arrow linking to top
-$('.up-arrow').on('click', function() {
+
+// animated scroll to top of page
+function scrollToTop() {
 	// animate scroll
 	UPDATE_NAVBAR = 0
 	$('html, body').animate({
@@ -91,12 +132,12 @@ $('.up-arrow').on('click', function() {
 			target.css('width', 0)
 		}, 50)
 	})
-})
+}
 
 // scroll function
 // show stickied navbar once scroll past header
-// update current section in navbar
-$(window).scroll(function() {
+// update current section and shifting underline in navbar
+function scrollHandler() {
 	// show stickied navbar once scroll past header
 	if (
 		// if scroll past header
@@ -157,27 +198,19 @@ $(window).scroll(function() {
 	// var top = this.getBoundingClientRect().top + window.pageYOffset
 	var top = 0
 
-	// update dimensions
+	// update shifting underline
 	target.css('width', `${width}px`)
 	target.css('height', `${height}px`)
 	target.css('left', `${left}px`)
 	target.css('top', `${top}px`)
 	target.css('borderColor', `black`)
 	target.css('transform', `none`)
-})
+}
 
-// add event listeners to each link to move navbar-underline
-var target = $('.navbar-underline')
-var links = $('.nav-link')
-links.each(function() {
-	$(this).on('click', (e) => e.preventDefault())
-	$(this).on('mouseover', moveHoverUnderline)
-})
-$('#container').on('mouseover', moveCurrentUnderline)
-$('#title').on('mouseover', moveCurrentUnderline)
-$('.up-arrow').on('mouseover', moveCurrentUnderline)
 
-// move navbar-underline to current section
+//////////////////// SHIFTING UNDERLINE ////////////////////
+
+// move shifting underline to current section
 function moveCurrentUnderline() {
 	// update active class
 	$(links).parent().removeClass('active')
@@ -202,26 +235,9 @@ function moveCurrentUnderline() {
 	target.css('top', `${top}px`)
 	target.css('borderColor', `black`)
 	target.css('transform', `none`)
-
-	// current_navlink_doms = document.querySelectorAll(`.nav-link.current`)
-	// if (current_navlink_doms == null) return
-	// for (var i = 0; i < current_navlink_doms.length; i++) {
-	// 	var current_navlink_dom = current_navlink_doms[i]
-	// 	var width = current_navlink_dom.getBoundingClientRect().width
-	// 	var height = current_navlink_dom.getBoundingClientRect().height
-	// 	var left = current_navlink_dom.getBoundingClientRect().left + window.pageXOffset
-
-	// 	// update dimensions
-	// 	target.css('width', `${width}px`)
-	// 	target.css('height', `${height}px`)
-	// 	target.css('left', `${left}px`)
-	// 	target.css('top', `${top}px`)
-	// 	target.css('borderColor', `black`)
-	// 	target.css('transform', `none`)
-	// }
 }
 
-// move navbar-underline on navbar link hover
+// move shifting underline on navbar link hover
 function moveHoverUnderline() {
 	if (!$(this).parent().hasClass('active')) {
 		// update active class
@@ -244,45 +260,10 @@ function moveHoverUnderline() {
 	}
 }
 
-// adjust navbar-underline on window resize
-function resizeFunc() {
-	var active = $('.nav-item.active')
-	if (active.length > 0) {
-		var left = active.getBoundingClientRect().left + window.pageXOffset
-		var top = active.getBoundingClientRect().top + window.pageYOffset
-		target.css('left', `${left}px`)
-		target.css('top', `${top}px`)
-	}
-
-	// check if hamburger is showing
-	if ($('.hamburger').css('display') == 'block') {
-		$('.navbar-underline').css('display', 'none')
-	} else {
-		$('.navbar-underline').css('display', 'block')
-	}
-
-	// check if About section columns are collapsed
-	if ($('#about-text').offset().top != $('#about-links').offset().top) {
-		$('#about-text').removeClass('text-right').addClass('text-left')
-		$('#about-links').removeClass('text-left').addClass('text-center')
-	} else {
-		$('#about-text').removeClass('text-left').addClass('text-right')
-		$('#about-links').removeClass('text-center').addClass('text-left')
-	}
-}
-window.addEventListener('resize', resizeFunc)
-
-// detect if device is touch screen
-function isTouchDevice() {
-	return (('ontouchstart' in window) ||
-		(navigator.maxTouchPoints > 0) ||
-		(navigator.msMaxTouchPoints > 0))
-}
 
 //////////////////// IMAGE LIGHTBOX ////////////////////
 
-var current_image
-
+// update overlay image for a given img
 function updateOverlayImage(img) {
 	// show selected image
 	src = $(img).attr('src')
@@ -293,80 +274,54 @@ function updateOverlayImage(img) {
 	$('#overlay-text').html(caption)
 }
 
-$(document).ready(function() {
-	resizeFunc()
-	
-	// open overlay
-	$('.image-container').on('click', function() {
-		current_image = $(this).find('img')
-		img = $(this).find('img')
-		updateOverlayImage(img)
+// show overlay
+function showOverlay() {
+	current_image = $(this).find('img')
+	img = $(this).find('img')
+	updateOverlayImage(img)
 
-		// if height greater than window height
-		if (0.9*$(window).width()*($(img).height()/$(img).width()) < $(window).height()) {
-			// $('#image-overlay-container').css('width', `${0.8*$(window).width()}px`)
-			// $('#image-overlay-container').css('height', '')
-		} else {
-			$('#image-overlay-container').css('height', `${0.8*$(window).height()}px`)
-			$('#image-overlay-container').css('width', '')
-		}
+	// if height greater than window height
+	if (0.9*$(window).width()*($(img).height()/$(img).width()) < $(window).height()) {
+		// $('#image-overlay-container').css('width', `${0.8*$(window).width()}px`)
+		// $('#image-overlay-container').css('height', '')
+	} else {
+		$('#image-overlay-container').css('height', `${0.8*$(window).height()}px`)
+		$('#image-overlay-container').css('width', '')
+	}
 
-		if (isTouchDevice()) {
-			$('#overlay-tip').css('visibility', 'hidden')
-				.css('opacity', 0)
-		} else {
-			$('#overlay-tip').css('visibility', 'visible')
-			.css('opacity', 1)
-		}
-
-		// $('#image-overlay').css('width', '60%')
-		// if (window.screen.width < 767) {
-		// 	$('#image-overlay').css('width', '90%')
-		// }
-
-		// show overlay, disable background scroll
-		$('#overlay').css('visibility', 'visible')
-		overlay.setAttribute('aria-hidden', false)
-		document.body.classList.toggle('noscroll', true)
-	})
-	
-	// close overlay
-	$('#close-overlay').on('click', function() {
-		// close overlay & re-enable scroll
-		$('#overlay').css('visibility', 'hidden')
+	// hide overlay tip if device has touch screen
+	if (isTouchDevice()) {
 		$('#overlay-tip').css('visibility', 'hidden')
 			.css('opacity', 0)
-		document.body.classList.toggle('noscroll', false)
-	
-		// zoom out image
-		$('#image-overlay').attr('width', '60%')
-		if (window.screen.width < 767) {
-			$('#image-overlay').attr('width', '90%')
-		}
-	})
-	
-	// image overlay zoom
-	// $('#image-overlay').on('click', function(e) {
-	// 	e.stopPropagation() // don't trigger #overlay click event
-	// 	// zoom in
-	// 	if (window.screen.width < 767) { // mobile
-	// 		if ($('#image-overlay').css('width') == '90%') {
-	// 			$('#image-overlay').css('width', '100%')
-	// 		} else { // zoom out
-	// 			$('#image-overlay').css('width', '90%')
-	// 		}
-	// 		return
-	// 	} // desktop
-	// 	if ($('#image-overlay').css('width') == '60%') {
-	// 		$('#image-overlay').css('width', '80%')
-	// 	} else { // zoom out
-	// 		$('#image-overlay').css('width', '60%')
-	// 	}
-	// })
+	} else {
+		$('#overlay-tip').css('visibility', 'visible')
+		.css('opacity', 1)
+	}
 
-	// navigate prev/next image
-	$(document).on('keyup', function(e) {
-		if ($('#overlay').css('visibility') == 'hidden') return
+	// show overlay, disable background scroll
+	$('#overlay').css('visibility', 'visible')
+	overlay.setAttribute('aria-hidden', false)
+	document.body.classList.toggle('noscroll', true)
+}
+
+// close overlay
+function hideOverlay() {
+	// close overlay & re-enable scroll
+	$('#overlay').css('visibility', 'hidden')
+	$('#overlay-tip').css('visibility', 'hidden')
+		.css('opacity', 0)
+	document.body.classList.toggle('noscroll', false)
+
+	// // zoom out image
+	// $('#image-overlay').attr('width', '60%')
+	// if (window.screen.width < 767) {
+	// 	$('#image-overlay').attr('width', '90%')
+	// }
+}
+
+// respond to keyup events, switch overlay image left and right
+function keyUpHandler(e) {
+	if ($('#overlay').css('visibility') == 'hidden') return
 		// prevent default keyup behavior
 		e.preventDefault()
 
@@ -392,6 +347,46 @@ $(document).ready(function() {
 		}
 		$('#overlay-tip').css('visibility', 'hidden')
 			.css('opacity', 0)
+}
+
+
+//////////////////// EXECUTE ////////////////////
+
+// execute functions when document is ready
+$(document).ready(function() {
+	// find shifting underline
+	target = $('.navbar-underline')
+	links = $('.nav-link')
+	// move shifting underline to hovered section
+	links.each(function() {
+		$(this).on('click', (e) => e.preventDefault())
+		$(this).on('mouseover', moveHoverUnderline)
 	})
+	// move shifting underline to current section
+	$('#container').on('mouseover', moveCurrentUnderline)
+	$('#title').on('mouseover', moveCurrentUnderline)
+	$('.up-arrow').on('mouseover', moveCurrentUnderline)
+
+	// window resize function
+	window.addEventListener('resize', resizeHandler)
+	// scroll function
+	$(window).scroll(scrollHandler)
+
+	// scroll to section on click
+	$('.nav-link').on('click', scrollToSection)
+	// scroll to top on click
+	$('.up-arrow').on('click', scrollToTop)
+	
+	// open overlay
+	$('.image-container').on('click', showOverlay)
+	// close overlay
+	$('#close-overlay').on('click', hideOverlay)
+	// navigate prev/next overlay image
+	$(document).on('keyup', function(e) {
+		keyUpHandler(e)
+	})
+
+	// execute resize function
+	resizeHandler()
 })
 
