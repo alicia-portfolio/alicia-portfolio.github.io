@@ -261,6 +261,25 @@ function scrollHandler() {
 	target.css('top', `${top}px`)
 	target.css('borderColor', `black`)
 	target.css('transform', `none`)
+
+	// fade image in on scroll
+	var pageTop = $(document).scrollTop()
+	var pageBottom = pageTop + $(window).height()
+	var tags = $('.image-container')
+	// check position of each image
+	for (var i = 0; i < tags.length; i++) {
+		var tag = tags[i]
+		// if scrolled into view
+		if ($(tag).position().top < pageBottom && $(tag).position().top + $(tag).height() > pageTop) {
+			$(tag).addClass('visible') // fade in
+			$(tag).addClass('up') // slide up
+		}
+		// if scrolled out of view
+		else {
+			$(tag).removeClass('visible') // fade in
+			$(tag).removeClass('up') // slide up
+		}
+	}
 }
 
 
