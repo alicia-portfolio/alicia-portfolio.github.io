@@ -173,8 +173,8 @@ function updateBackgroundShapes(current_section) {
 
 	// show background shapes for current section
 	if (current_section == 'intro') {
-		$('.intro1').css('opacity', 1).css('top', 0).css('z-index', 1)
-		$('.intro2').css('opacity', 0.8).css('bottom', 0).css('z-index', 1)
+		$('.intro1').css('opacity', 1).css('top', 0)
+		$('.intro2').css('opacity', 0.8).css('bottom', 0)
 	}
 	else if (current_section == 'digital-art') {
 		$('.digital-art1').css('opacity', 1).css('top', $('#navbar').outerHeight())
@@ -190,11 +190,11 @@ function updateBackgroundShapes(current_section) {
 	}
 	else if (current_section == 'about') {
 		$('.intro1').css('opacity', 1).css('top', $('#navbar').outerHeight()).css('z-index', -1)
-		$('.intro2').css('opacity', 1).css('bottom', 0).css('z-index', -1)
+		$('.intro2').css('opacity', 1).css('bottom', 0)
 	}
 	else { // intro
-		$('.intro1').css('opacity', 1).css('top', 0).css('z-index', 1)
-		$('.intro2').css('opacity', 0.8).css('bottom', 0).css('z-index', 1)
+		$('.intro1').css('opacity', 1).css('top', 0)
+		$('.intro2').css('opacity', 0.8).css('bottom', 0)
 	}
 }
 
@@ -473,7 +473,7 @@ function parallax(scrollTop) {
 			$('#navbar').removeClass('navbar-fixed')
 			$('.up-arrow').css('opacity', 0)
 			if ($('.hamburger').css('display') != 'none') $('#nav-items').css('background-color', '#ffffffee') // #ffffffee
-			// else $('#nav-items').css('background-color', 'transparent')
+			else $('#nav-items').css('background-color', 'transparent')
 			parallaxElements[id].state = 'before'
 			$(parallaxElements[id].elm)
 				.css({

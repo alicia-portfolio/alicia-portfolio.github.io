@@ -104,6 +104,7 @@ video {
 
 #navbar {
 	position: absolute;
+	padding-bottom: 0;
 	width: 100%;
 	background-color: transparent;
 	transition: background-color 0.2s;
@@ -140,7 +141,7 @@ video {
 }
 
 .nav-icon {
-	max-width: 30px;
+	max-width: 20px;
 	display: block;
 	transition: 0.2s;
 }
@@ -213,7 +214,7 @@ video {
 .placeholder {
 	position: relative;
 	width: 100%;
-	filter: blur(10px);
+	/* filter: blur(10px); */
 	transform: scale(1);
 }
 
@@ -229,6 +230,7 @@ video {
 
 .artwork.loaded {
 	opacity: 1;
+	transition: opacity 0.2s linear;
 }
 
 .up {
@@ -238,8 +240,6 @@ video {
 .down {
 	transform: translate(0, 20px);
 }
-
-
 
 #intro {
 	font-size: 24px;
