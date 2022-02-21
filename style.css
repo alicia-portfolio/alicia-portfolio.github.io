@@ -112,6 +112,7 @@ video {
 }
 
 #navbar {
+	position: absolute;
 	width: 100%;
 	background-color: transparent;
 	z-index: 2;

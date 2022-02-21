@@ -157,13 +157,14 @@ function updateBackgroundShapes(current_section) {
 	// reset all other background shapes
 	$('.bg-shape').css('opacity', 0)
 	$('.top').css('top', function() {
-		// console.log(this, $(this).data('start'))
-		return $(this).data('start')
+		// console.log(this, $(this).attr('data-start'))
+		return $(this).attr('data-start')
 	})
 	$('.bottom').css('bottom', function() {
-		// console.log(this, $(this).data('start'))
-		return $(this).data('start')
+		// console.log(this, $(this).attr('data-start'))
+		return $(this).attr('data-start')
 	})
+	console.log($('.design2').attr('data-start'), $('.design2').css('bottom'))
 
 	// show background shapes for current section
 	if (current_section == 'intro') {
@@ -402,6 +403,8 @@ function keyUpHandler(e) {
 			.css('opacity', 0)
 }
 
+//////////////////// PARALLAX ////////////////////
+
 // implement behavior for a given parallax element
 // designed specifically for navbar
 function parallax(scrollTop) {
@@ -410,8 +413,6 @@ function parallax(scrollTop) {
 		// DURING - fixed position
 		// element is now active, fix the position so when we scroll it stays fixed
 		$('#navbar').addClass('navbar-fixed')
-		if ($('.hamburger').css('display') == 'none') $('.up-arrow').css('opacity', 1)
-		else $('.up-arrow').css('opacity', 0)
 		if (scrollTop >= parallaxElements[id].start && scrollTop <= parallaxElements[id].stop) {
 			// console.log('during', scrollTop, parallaxElements[id].start)
 			parallaxElements[id].state = 'during'
@@ -427,7 +428,6 @@ function parallax(scrollTop) {
 		else if (scrollTop < parallaxElements[id].start) {
 			// console.log('before', scrollTop, parallaxElements[id].start)
 			$('#navbar').removeClass('navbar-fixed')
-			$('.up-arrow').css('opacity', 0)
 			parallaxElements[id].state = 'before'
 			$(parallaxElements[id].elm)
 				.css({
@@ -478,11 +478,6 @@ $(document).ready(function() {
 	$('.nav-link').on('click', scrollToSection)
 	// scroll to top on click
 	$('.up-arrow').on('click', scrollToTop)
-	// $('body').on('animationend', () => {
-	// 	console.log('animation end', current_section)
-	// 	updateBackgroundShapes(current_section)
-	// })
-
 	
 	// open overlay
 	$('.image-container').on('click', showOverlay)
@@ -492,6 +487,8 @@ $(document).ready(function() {
 	$(document).on('keyup', function(e) {
 		keyUpHandler(e)
 	})
+
+	// resizeHandler()
 
 	//////////// PARALLAX ////////////
 
