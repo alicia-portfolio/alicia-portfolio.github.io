@@ -177,19 +177,19 @@ function updateBackgroundShapes(current_section) {
 		$('.intro2').css('opacity', 0.8).css('bottom', 0).css('z-index', 1)
 	}
 	else if (current_section == 'digital-art') {
-		$('.digital-art1').css('opacity', 1).css('top', $('#navbar').height())
+		$('.digital-art1').css('opacity', 1).css('top', $('#navbar').outerHeight())
 		$('.digital-art2').css('opacity', 1).css('bottom', 0)
 	}
 	else if (current_section == 'animation') {
-		$('.animation1').css('opacity', 1).css('top', $('#navbar').height())
+		$('.animation1').css('opacity', 1).css('top', $('#navbar').outerHeight())
 		$('.animation2').css('opacity', 1).css('bottom', 0)
 	}
 	else if (current_section == 'design') {
-		$('.design1').css('opacity', 1).css('top', $('#navbar').height())
+		$('.design1').css('opacity', 1).css('top', $('#navbar').outerHeight())
 		$('.design2').css('opacity', 1).css('bottom', 0)
 	}
 	else if (current_section == 'about') {
-		$('.intro1').css('opacity', 1).css('top', $('#navbar').height()).css('z-index', -1)
+		$('.intro1').css('opacity', 1).css('top', $('#navbar').outerHeight()).css('z-index', -1)
 		$('.intro2').css('opacity', 1).css('bottom', 0).css('z-index', -1)
 	}
 	else { // intro
