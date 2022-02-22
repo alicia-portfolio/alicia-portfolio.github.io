@@ -1,0 +1,23 @@
+{
+	"name": "Alicia Kang | Portfolio",
+	"short_name": "Alicia Kang | Portfolio",
+	"icons": [
+		{
+			"src": "media/favicon_white.png",
+			"sizes": "180x180"
+		},
+		{
+			"src": "media/favicon_white_large.png",
+			"sizes:": "512x512"
+		},
+		{
+			"src": "media/mask-icon.png",
+			"sizes": "512x512",
+			"purpose": "any maskable"
+		}
+	],
+	"background_color": "#ED8270",
+	"theme_color": "#ED8270",
+	"display": "standalone",
+	"start_url": "/index.html"
+}

@@ -17,28 +17,6 @@ var icon_dict = {
 	'#about': 'yellow',
 }
 
-// add typing animations to section 
-new TypeIt("#digital-art .section-header", {
-	speed: 60,
-	waitUntilVisible: true,
-	cursor: false,
-}).go()
-new TypeIt("#animation .section-header", {
-	speed: 60,
-	waitUntilVisible: true,
-	cursor: false,
-}).go()
-new TypeIt("#design .section-header", {
-	speed: 60,
-	waitUntilVisible: true,
-	cursor: false,
-}).go()
-new TypeIt("#about .section-header", {
-	speed: 60,
-	waitUntilVisible: true,
-	cursor: false,
-}).go()
-
 // get key with lowest value for a given dict
 function getLowestKey(obj) {
 	if (Object.keys(obj).length == 0) return 0
@@ -114,7 +92,7 @@ function scrollToSection() {
 	})
 
 	// show white icon for current navlink
-	$('img', current_navlink).attr('src', 'media/favicon.svg')
+	$('img', current_navlink).attr('src', 'media/favicon_white.svg')
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
 
@@ -243,7 +221,7 @@ function scrollHandler() {
 		$('img', $(this)).attr('src', `media/favicon_${color}.svg`)
 	})
 	// show white icon for current navlink
-	$('img', current_navlink).attr('src', 'media/favicon.svg')
+	$('img', current_navlink).attr('src', 'media/favicon_white.svg')
 	$('.nav-link').removeClass('current')
 	$('img', current_navlink).parent().addClass('current')
 
