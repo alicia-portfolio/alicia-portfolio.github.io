@@ -341,12 +341,16 @@ function hideLoadingOverlay() {
 // update overlay image for a given img
 function updateOverlayImage(img) {
 	// show selected image
-	src = $(img).attr('src')
+	src = $(img).attr('data-imglarge')
 	$('#image-overlay').attr('src', src)
 
 	// show caption for selected image
 	caption = $(img).attr('data-caption')
 	$('#overlay-text').html(caption)
+
+	$('#image-overlay').on('load', () => {
+		$('#image-overlay').css('opacity', 1)
+	})
 }
 
 // show overlay
@@ -374,7 +378,7 @@ function showOverlay() {
 	}
 
 	// show overlay, disable background scroll
-	$('#overlay').css('visibility', 'visible')
+	$('#overlay').css('visibility', 'visible').css('opacity', 1)
 	overlay.setAttribute('aria-hidden', false)
 	document.body.classList.toggle('noscroll', true)
 }
@@ -382,16 +386,10 @@ function showOverlay() {
 // close overlay
 function hideOverlay() {
 	// close overlay & re-enable scroll
-	$('#overlay').css('visibility', 'hidden')
-	$('#overlay-tip').css('visibility', 'hidden')
-		.css('opacity', 0)
+	$('#overlay').css('visibility', 'hidden').css('opacity', 0)
+	$('#overlay-tip').css('visibility', 'hidden').css('opacity', 0)
+	$('#image-overlay').css('opacity', 0)
 	document.body.classList.toggle('noscroll', false)
-
-	// // zoom out image
-	// $('#image-overlay').attr('width', '60%')
-	// if (window.screen.width < 767) {
-	// 	$('#image-overlay').attr('width', '90%')
-	// }
 }
 
 // respond to keyup events, switch overlay image left and right
@@ -450,8 +448,8 @@ function parallax(scrollTop) {
 			// console.log('before', scrollTop, parallaxElements[id].start)
 			$('#navbar').removeClass('navbar-fixed')
 			$('.up-arrow').css('opacity', 0)
-			if ($('.hamburger').css('display') != 'none') $('#nav-items').css('background-color', '#ffffffee') // #ffffffee
-			else $('#nav-items').css('background-color', 'transparent')
+			// if ($('.hamburger').css('display') != 'none') $('#nav-items').css('background-color', '#ffffffee') // #ffffffee
+			// else $('#nav-items').css('background-color', 'transparent')
 			parallaxElements[id].state = 'before'
 			$(parallaxElements[id].elm)
 				.css({
@@ -483,22 +481,27 @@ function parallax(scrollTop) {
 function loadImages() {
 	// for each image container
 	$('.image-container').each(function() {
-		// load large image
+		// get medium-sized image filename
+		var img_filename = $(this).attr('data-imglarge')
+		var img_med_filename = img_filename.substring(0, img_filename.indexOf('.png')) + '_medium.jpg'
+
+		// load medium-sized image
 		var imgLarge = new Image()
 		$(imgLarge).addClass('artwork')
-		$(imgLarge).attr('src', $(this).attr('data-imglarge'))
+			.attr('src', img_med_filename)
+			.attr('data-imglarge', img_filename)
+			.attr('alt', $('.placeholder', $(this)).attr('alt'))
 			.on('load', () => {
 				$(imgLarge).addClass('loaded')
 			})
-		
 		$(this).append($(imgLarge))
 
 		// update placeholder image src
-		$('.placeholder', $(this)).attr('src', $(this).attr('data-imglarge'))
+		$('.placeholder', $(this)).attr('src', img_med_filename)
+			.attr('data-imglarge', img_filename)
 			.css('filter', 'none')
 	})
 	console.log('window loaded!')
-	console.log($('.image-container'))
 }
 
 //////////////////// EXECUTE ////////////////////
@@ -606,7 +609,7 @@ $(document).ready(function() {
 	resizeHandler()
 
 	// load artwork image placeholders
-	$(window).on('load', loadImages)
+	// $(window).on('load', loadImages)
 
 	loadImages()
 	hideLoadingOverlay()

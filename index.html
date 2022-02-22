@@ -25,7 +25,8 @@
 		<!-- STYLESHEETS -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="src/style.css">
+		<link rel="stylesheet" href="src/lite-yt-embed.css">
 		
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2V5CJBGK4K"></script>
@@ -104,14 +105,6 @@
 		<!-- ARROW TO TOP -->
 		<div class="up-arrow">↑</div>
 
-		<!-- <div class="lds-ellipsis">
-			<div></div>
-			<div class="ellipsis-red"></div>
-			<div></div>
-			<div></div>
-		</div> -->
-
-
 		<!-- LOADING OVERLAY -->
 		<div class="overlay" id="loading-overlay">
 			<!-- LOADING ICON -->
@@ -124,6 +117,31 @@
 			</div>
 		</div>
 		
+		<!-- OVERLAY -->
+		<div id="overlay" class="overlay text-center" aria-hidden="true">
+			<div id="close-overlay"><i class="fas fa-times"></i></div>
+			<div id="overlay-container">
+				<div id="overlay-text"></div>
+				<div id="image-overlay-container">
+					<img id="image-overlay"></img>
+				</div>
+				<br>
+				<div id="overlay-tip">Use the left and right arrows on your keyboard to navigate the images.</div>
+				<br><br><br>
+			</div>
+		</div>
+
+		<!-- BACKGROUND IMAGE -->
+		<span id="bg-shapes">
+			<img class="bg-shape intro1 top" src="media/shapes/intro1.svg" alt="background shapes" style="left: 0; width: 90%; opacity: 1;" data-start=-20 data-stop=0>
+			<img class="bg-shape intro2 bottom" src="media/shapes/intro2.svg" alt="background shapes" style="right: 70px; width: 40%; opacity: 0.8;" data-start=-20 data-stop=0>
+			<img class="bg-shape digital-art1 top" src="media/shapes/digital-art1.svg" alt="background shapes" style="left: 0; width: 40%;" data-start=-20 data-stop=0>
+			<img class="bg-shape digital-art2 bottom" src="media/shapes/digital-art2.svg" alt="background shapes" style="left: 0; width: 100%;" data-start=-20 data-stop=0>
+			<img class="bg-shape animation1 top" src="media/shapes/animation1.svg" alt="background shapes" style="right: 200px; width: 30%;" data-start=160 data-stop=0>
+			<img class="bg-shape animation2 bottom" src="media/shapes/animation2.svg" alt="background shapes" style="left: 100px; width: 80%;" data-start=-20 data-stop=0>
+			<img class="bg-shape design1 top" src="media/shapes/design1.svg" alt="background shapes" style="left: 0; width: 100%;" data-start=-20 data-stop=0>
+			<img class="bg-shape design2 bottom" src="media/shapes/design2.svg" alt="background shapes" style="left: 0; width: 100%;" data-start=-20 data-stop=0>
+		</span>
 
 		<!-- MAIN BODY -->
 		<div id="container" class="text-center">
@@ -180,13 +198,13 @@
 				</div>
 
 				<!-- OTHERS -->
-				<div class="image-container" data-imglarge="media/digital_art/Comfort Women Collage.jpg">
+				<div class="image-container" data-imglarge="media/digital_art/Comfort Women Collage.png">
 					<img class="image placeholder img-small" src="media/placeholder.png" alt="Comfort Woman Collage" data-caption="Comfort Woman Collage - for a digital art class assignment, I clipped a speech bubble from Keum Suk Gendry-Kim's graphic novel Grass and a photo of former comfort woman Lee Ok-sun. Then, I placed these images into a modern photo of a comfort woman statue in Korea.">
 				</div>
 				<div class="image-container" data-imglarge="media/digital_art/Eyes (Digital Sketch).png">
 					<img class="image placeholder img-small" src="media/placeholder.png" alt="Sketch of Eyes (using reference)" data-caption="Sketch of Eyes (using reference)">
 				</div>
-				<div class="image-container" data-imglarge="media/digital_art/Mom and Grandma in the Snow.jpg">
+				<div class="image-container" data-imglarge="media/digital_art/Mom and Grandma in the Snow.png">
 					<img class="image placeholder img-small" src="media/placeholder.png" alt="Mom and Grandma in the Snow" data-caption="Mom and Grandma in the Snow - using a reference photo of my mom and her mother when they were younger.">
 				</div>
 				<div class="image-container" data-imglarge="media/digital_art/Beast Boy.png">
@@ -226,23 +244,9 @@
 					<img src="media/placeholder.png" class="image placeholder img-small" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
 				</div> -->
 
-				<div class="iframe-container">
-					<div class="iframe-wrapper">
-						<iframe class="yt" width="560" height="315" src="https://www.youtube.com/embed/6mOEnLLqXxI" alt="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					</div>
-				</div>
-				
-				<div class="iframe-container">
-					<div class="iframe-wrapper">
-						<iframe class="yt" width="560" height="315" src="https://www.youtube.com/embed/PSjYBKo3b7Q" alt="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					</div>
-				</div>
-				
-				<div class="iframe-container">
-					<div class="iframe-wrapper">
-						<iframe class="yt" width="560" height="315" src="https://www.youtube.com/embed/ZEPhY_SIylI" alt="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					</div>
-				</div>
+				<lite-youtube videoid="6mOEnLLqXxI" style="background-image: url('media/animation/cat&bun_medium.jpg')"></lite-youtube>
+				<lite-youtube videoid="PSjYBKo3b7Q" style="background-image: url('media/animation/squidgame_medium.jpg')"></lite-youtube>
+				<lite-youtube videoid="ZEPhY_SIylI" style="background-image: url('media/animation/procreate_medium.jpg')"></lite-youtube>
 				
 			</div>
 
@@ -258,30 +262,26 @@
 				</div>
 
 				<!-- <div class="image-container">
-					<img src="media/design/Recruiter Analytics Job Postings.png" class="image" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
+					<img src="media/design/Recruiter Analytics Job Postings.svg" class="image" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
 				</div>
 				<div class="image-container">
-					<img src="media/design/Daily Infographic.png" class="image" alt="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
+					<img src="media/design/Daily Infographic.svg" class="image" alt="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
 				</div>
 				<div class="image-container">
-					<img src="media/design/Recruiter Analytics Job Postings.png" class="image" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
+					<img src="media/design/Recruiter Analytics Job Postings.svg" class="image" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
 				</div>
 				<div class="image-container">
-					<img src="media/design/Daily Infographic.png" class="image" alt="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
+					<img src="media/design/Daily Infographic.svg" class="image" alt="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
 				</div>
 				<div class="image-container">
-					<img src="media/design/Recruiter Analytics Job Postings.png" class="image" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
+					<img src="media/design/Recruiter Analytics Job Postings.svg" class="image" alt="Recruiter Dashboard" data-caption="Recruiter Dashboard - I created a dashboard on Figma to simulate a human resources website that would help companies track application information.">
 				</div>
 				<div class="image-container">
-					<img src="media/design/Daily Infographic.png" class="image" alt="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
+					<img src="media/design/Daily Infographic.svg" class="image" alt="A Day in Voute" data-caption="A Day in Voute - for my graphic design class, I created a data visualization of my and my roommates' daily routines.">
 				</div> -->
 
 				<br><br>
-				<div class="iframe-container">
-					<div class="iframe-wrapper">
-						<iframe class="yt" width="560" height="315" src="https://www.youtube.com/embed/Oa188ZJlftw" alt="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					</div>
-				</div>
+				<lite-youtube videoid="Oa188ZJlftw" style="background-image: url('media/design/cafelingua_medium.jpg')"></lite-youtube>
 
 				<!-- <video controls poster="media/design/Cafe Lingua Prototype Video.png">
 					<source src="media/design/Cafe Lingua Prototype Video.mov" type="video/mov">
@@ -300,9 +300,6 @@
 						<p>I hope you've enjoyed what I have to offer as an artist, and I'd love to keep in touch! Contact me at <a href="mailto:jastk2018@gmail.com" target="_blank" rel="noopener noreferrer" title="Email">jastk2018@gmail.com</a>.</p>
 					</div>
 					<div id="about-links" class="col-md-6 text-left">
-						<!-- <div class="image-container" data-imglarge="media/alicia.png">
-							<img class="image placeholder img-small" src="media/placeholder.png" alt="a picture of me" data-caption="a picture of me"><br><br>
-						</div> -->
 						<img src="media/alicia.png" alt="a picture of me"><br><br>
 						<a href="media/Alicia-Kang-Resume-with-Portfolio.pdf" target="_blank" rel="noopener noreferrer" title="Resume">Resume</a>
 						<a href="https://www.instagram.com/aver.ni" target="_blank" rel="noopener noreferrer" title="Instagram">Instagram</a>
@@ -322,37 +319,12 @@
 			<br>
 			© 2022 Alicia Kang
 			<br><br>
-
-			<!-- BACKGROUND IMAGE -->
-			<span id="bg-shapes">
-				<img class="bg-shape intro1 top" src="media/shapes/intro1.png" style="left: 0; width: 90%; opacity: 1;" data-start=-20 data-stop=0>
-				<img class="bg-shape intro2 bottom" src="media/shapes/intro2.png" style="right: 70px; width: 40%; opacity: 0.8;" data-start=-20 data-stop=0>
-				<img class="bg-shape digital-art1 top" src="media/shapes/digital-art1.png" style="left: 0; width: 40%;" data-start=-20 data-stop=0>
-				<img class="bg-shape digital-art2 bottom" src="media/shapes/digital-art2.png" style="left: 0; width: 100%;" data-start=-20 data-stop=0>
-				<img class="bg-shape animation1 top" src="media/shapes/animation1.png" style="right: 200px; width: 30%;" data-start=160 data-stop=0>
-				<img class="bg-shape animation2 bottom" src="media/shapes/animation2.png" style="left: 100px; width: 80%;" data-start=-20 data-stop=0>
-				<img class="bg-shape design1 top" src="media/shapes/design1.png" style="left: 0; width: 100%;" data-start=-20 data-stop=0>
-				<img class="bg-shape design2 bottom" src="media/shapes/design2.png" style="left: 0; width: 100%;" data-start=-20 data-stop=0>
-			</span>
-			
-			<!-- OVERLAY -->
-			<div id="overlay" class="overlay text-center" aria-hidden="true">
-				<div id="close-overlay"><i class="fas fa-times"></i></div>
-				<div id="overlay-container">
-					<div id="overlay-text"></div>
-					<div id="image-overlay-container">
-						<img id="image-overlay"></img>
-					</div>
-					<br>
-					<div id="overlay-tip">Use the left and right arrows to navigate through the images.</div>
-					<br><br><br>
-				</div>
-			</div>
 		</div>
 
 		<!-- SCRIPTS -->
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-		<script src="script.js" defer></script>
+		<script src="src/script.js" defer></script>
+		<script src="src/lite-yt-embed.js"></script>
 	</body>
 </html>
