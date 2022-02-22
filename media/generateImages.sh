@@ -10,9 +10,9 @@ do
 	small_filename="${substring}_small.jpg"
 	medium_filename="${substring}_medium.jpg"
 	# convert image to small and medium
-	# convert -resize 10% -background white -flatten $filename $small_filename
+	convert -resize 10% -background white -flatten $filename $small_filename
 	convert -resize 30% -background white -flatten $filename $medium_filename
-	# echo $small_filename
+	echo $small_filename
 	echo $medium_filename
 done
 
