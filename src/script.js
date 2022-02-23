@@ -56,8 +56,10 @@ function resizeHandler() {
 	// don't show shifting underline if hamburger is showing
 	if ($('.hamburger').css('display') == 'block') {
 		$('.navbar-underline').css('display', 'none')
+		$('#intro').css('margin-top', $('#navbar').height() + 20)
 	} else {
 		$('.navbar-underline').css('display', 'block')
+		$('#intro').css('margin-top', $('#navbar').height() + 60)
 	}
 
 	// update navbar and intro text positioning
@@ -68,7 +70,6 @@ function resizeHandler() {
 	} else {
 		$('#navbar').css('top', $('#before-sticky').height())
 	}
-	$('#intro').css('margin-top', $('#navbar').height() + 20)
 }
 
 //////////////////// SCROLL FUNCTIONS ////////////////////

@@ -72,7 +72,7 @@ video {
 }
 
 .shadow-effect {
-	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.523), 0 0px 30px rgba(0, 0, 0, 0.521);
+	box-shadow: 0 0px 0px #00000085, 0 0px 30px #00000085;
 }
 
 .overlay {
@@ -403,7 +403,7 @@ button.navbar-toggler {
 	left: 0; 
 	padding: 20px;
 	color: white;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: #00000099;
 	opacity: 0;
 	visibility: hidden;
 	transition: 0.2s;
@@ -422,7 +422,8 @@ button.navbar-toggler {
 	height: 100%;
 	object-fit: contain;
 	margin: auto;
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.324), 0 6px 6px rgba(0, 0, 0, 0.324);
+	box-shadow: 0 10px 20px #00000053, 0 6px 6px #00000053;
+	opacity: 0;
 	transition: 0.2s;
 }
 
