@@ -169,7 +169,7 @@ function updateBackgroundShapes(current_section) {
 	}
 	else if (current_section == 'about') {
 		$('.intro1').css('opacity', 1).css('top', $('#navbar').outerHeight()).css('z-index', -1)
-		$('.intro2').css('opacity', 1).css('bottom', 0)
+		$('.intro2').css('opacity', 0.8).css('bottom', 0)
 	}
 	else { // intro
 		$('.intro1').css('opacity', 1).css('top', 0)
