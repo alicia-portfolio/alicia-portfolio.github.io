@@ -323,7 +323,7 @@ iframe {
 }
 
 #about-text {
-	padding-left: 40px;
+	/* padding-left: 40px; */
 }
 
 #about-links a {
@@ -332,11 +332,16 @@ iframe {
 	line-height: 32px;
 	margin: 0;
 	padding: 0;
-	display: block;
+	/* display: block; */
 }
 
 #about-links a:hover {
 	color: #FF7C6A;
+}
+
+#about-links div {
+	display: inline;
+	margin: 0 10px;
 }
 
 /********************** NAVBAR BUTTON **********************/
